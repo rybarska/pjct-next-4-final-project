@@ -38,12 +38,6 @@ const navStyles = css`
 `;
 
 export default function Header(props) {
-  const totalItemsInCart = props.cookieState
-    ? props.cookieState.reduce(function (previousValue, currentValue) {
-        return previousValue + currentValue.counts;
-      }, 0)
-    : 0;
-
   return (
     <header>
       <div css={upMostElementStyles}>
@@ -55,7 +49,7 @@ export default function Header(props) {
             height="120"
           />
         </a>
-        <h1>Space Drone Incident Reporting Database</h1>
+        <h1>Space Drone Incident Reporting System</h1>
         <br></br>
       </div>
       <nav css={navStyles}>

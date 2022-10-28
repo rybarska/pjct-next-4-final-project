@@ -11,7 +11,7 @@ export default function About() {
       </Head>
 
       <div>Private profile</div>
-      <p>Register/Login to access private profile.</p>
+      <h2>Register/Login to access private profile.</h2>
     </>
   );
 }

@@ -8,6 +8,6 @@ const footerStyles = css`
 
 export default function Footer() {
   return (
-    <footer css={footerStyles}>Space Drone Incident Reporting Database</footer>
+    <footer css={footerStyles}>Space Drone Incident Reporting System</footer>
   );
 }
