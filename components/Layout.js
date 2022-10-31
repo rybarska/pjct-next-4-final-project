@@ -5,6 +5,7 @@ import Header from './Header';
 
 const mainStyles = css`
   padding: 10px 20px;
+  background: #f2f5fc;
 `;
 
 export default function Layout(props) {

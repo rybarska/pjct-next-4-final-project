@@ -5,8 +5,6 @@ import Image from 'next/image';
 const imageStyles = css`
   display: flex;
   justify-content: center;
-  margin: auto;
-  background-color: black;
 `;
 
 export default function About() {
@@ -25,15 +23,16 @@ export default function About() {
         the outer space. Reporting and access to information is restricted to
         registered users.
       </h2>
-      <a>
-        <Image
-          css={imageStyles}
-          src={`/images/spaceDroneInAbout.jpeg`}
-          alt="drone flying in outer space"
-          width="400"
-          height="400"
-        />
-      </a>
+      <div css={imageStyles}>
+        <a>
+          <Image
+            src={`/images/spaceDroneInAbout.jpeg`}
+            alt="drone flying in outer space"
+            width="400"
+            height="400"
+          />
+        </a>
+      </div>
     </>
   );
 }

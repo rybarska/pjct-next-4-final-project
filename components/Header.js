@@ -7,7 +7,7 @@ const upMostElementStyles = css`
   justify-content: center;
   padding: 6px 0px;
   color: black;
-  background-color: white;
+  background-color: #f2f5fc;
   font-size: 26px;
   font-family: 'Courier New', Courier, monospace;
 `;
@@ -25,7 +25,7 @@ const navStyles = css`
   > a {
     font-size: 27px;
     text-decoration: none;
-    color: #ffb469;
+    color: #d7d8fc;
     padding: 20px;
   }
   > div {
@@ -45,8 +45,8 @@ export default function Header(props) {
           <Image
             src={`/images/logo.png`}
             alt="schematic drawing of a drone"
-            width="120"
-            height="120"
+            width="100"
+            height="100"
           />
         </a>
         <h1>Space Drone Incident Reporting System</h1>
