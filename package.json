@@ -6,10 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "migrate": "dotenv ley"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
+    "dotenv-cli": "^6.0.0",
     "dotenv-safe": "^8.2.0",
     "js-cookie": "^3.0.1",
     "ley": "^0.8.1",
