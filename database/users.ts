@@ -4,6 +4,11 @@ export type User = {
   id: number;
   username: string;
   passwordHash: string;
+  accountId: number;
+  role: string;
+  email: string;
+  isEmailValidated: string;
+  registrationToken: string;
 };
 
 export async function getUserByUsername(username: string) {
