@@ -110,7 +110,7 @@ export default function Register(props: Props) {
           return (
             <p
               css={css`
-                background-color: red;
+                background-color: #c80101;
                 color: white;
                 padding: 5px;
               `}
