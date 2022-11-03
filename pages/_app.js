@@ -1,38 +1,29 @@
 /** @jsxImportSource @emotion/react */
 
 import { css, Global } from '@emotion/react';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Layout from '../components/Layout';
 import { getParsedCookie, setStringifiedCookie } from '../utils/cookies';
 
 //import { getParsedCookie, setStringifiedCookie } from '../utils/cookies';
 
 function MyApp({ Component, pageProps, props }) {
-  const [cookieState, setCookieState] = useState();
+  const [user, setUser] = useState();
 
-  console.log('say cookie state', cookieState);
+  const refreshUserProfile = useCallback(async () => {
+    const profileResponse = await fetch('/api/profile');
+    const profileResponseBody = await profileResponse.json();
 
-  // this is to update state on first render when state is empty
-  /* useEffect(() => {
-    const currentCookieValue = getParsedCookie('cookies');
-    setCookieState(currentCookieValue);
-    console.log('say currentCookieValue', currentCookieValue);
-    console.log("say getParsedCookie('cookies')", getParsedCookie('cookies'));
-  }, []); */
-
-  // to update the cookie every time state changes
-  // this should run every time cookieState is updated
-  useEffect(() => {
-    function setAllCookies() {
-      // do this only if cookie state is defined
-      if (typeof cookieState !== 'undefined') {
-        const newCookieValue = cookieState;
-        setStringifiedCookie('cookies', newCookieValue);
-      }
+    if ('errors' in profileResponseBody) {
+      setUser(undefined);
+    } else {
+      setUser(profileResponseBody.user);
     }
-    setAllCookies();
-  }, [cookieState]);
+  }, []);
 
+  useEffect(() => {
+    refreshUserProfile().catch(() => console.log('fetch api failed'));
+  }, [refreshUserProfile]);
   return (
     <>
       <Global
@@ -51,12 +42,12 @@ function MyApp({ Component, pageProps, props }) {
         `}
       />
 
-      <Layout cookieState={cookieState} setCookieState={setCookieState}>
-        <Component
-          {...pageProps}
-          cookieState={cookieState}
-          setCookieState={setCookieState}
-        />
+      <Layout user={user}>
+        {/*
+          The "Component" component refers to
+          the current page that is being rendered
+        */}
+        <Component {...pageProps} refreshUserProfile={refreshUserProfile} />
       </Layout>
     </>
   );

@@ -40,6 +40,8 @@ export default async function handler(
     // 3. we hash the password
     const passwordHash = await bcrypt.hash(request.body.password, 12);
 
+    console.log(passwordHash);
+
     // 4. sql query to create the record
     const userWithoutPassword = await createUser(
       request.body.username,

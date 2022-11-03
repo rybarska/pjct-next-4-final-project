@@ -6,13 +6,15 @@ import Header from './Header';
 const mainStyles = css`
   padding: 10px 20px;
   background: #f2f5fc;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 `;
 
 export default function Layout(props) {
   return (
     <>
       <Head>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/images/favicon1.ico" />
       </Head>
 
       <div>

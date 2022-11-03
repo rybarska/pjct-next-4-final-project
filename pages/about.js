@@ -2,9 +2,15 @@ import { css } from '@emotion/react';
 import Head from 'next/head';
 import Image from 'next/image';
 
-const imageStyles = css`
+const imageDisplayStyles = css`
   display: flex;
   justify-content: center;
+  border-radius: 50%;
+`;
+const imageStyles = css`
+  border-radius: 3%;
+  margin-top: 20px;
+  margin-bottom: 20px;
 `;
 
 export default function About() {
@@ -23,10 +29,11 @@ export default function About() {
         the outer space. Reporting and access to information is restricted to
         registered users.
       </h2>
-      <div css={imageStyles}>
+      <div css={imageDisplayStyles}>
         <a>
           <Image
-            src={`/images/spaceDroneInAbout.jpeg`}
+            css={imageStyles}
+            src={`/images/spaceDroneCompLab2.jpeg`}
             alt="drone flying in outer space"
             width="400"
             height="400"
