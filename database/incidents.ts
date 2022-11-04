@@ -3,29 +3,32 @@ import { sql } from './connect';
 export type Incident = {
   id: number;
   category: string;
-  coordinates: {}[];
+  coordinates: string;
+  day: string;
 };
 
 export type Drone = {
   id: number;
-  registrationData: {}[];
-  origin: {}[];
+  registrationData: string;
+  origin: string;
 };
 
 export type IncidentWithDrones = {
   incidentId: number;
   incidentCategory: string;
-  incidentCoordinates: {}[];
-  droneRegistrationData: {}[];
-  droneOrigin: {}[];
+  incidentCoordinates: string;
+  incidentDay: string;
+  droneRegistrationData: string;
+  droneOrigin: string;
 };
 
 export type IncidentWithDronesLeftJoin = {
   incidentId: number;
   incidentCategory: string;
-  incidentCoordinates: {}[];
-  droneRegistrationData: {}[];
-  droneOrigin: {}[];
+  incidentCoordinates: string;
+  incidentDay: string;
+  droneRegistrationData: string;
+  droneOrigin: string;
 };
 
 // Get all incidents
@@ -93,6 +96,7 @@ export async function getIncidentByIdWithDrones(incidentId: number) {
       incidents.id AS incident_id,
       incidents.category AS incident_category,
       incidents.coordinates AS incident_coordinates,
+      incidents.day AS incident_day,
       drones.registrationData AS drone_registration_data,
       drones.origin AS drone_origin
     FROM
@@ -117,6 +121,7 @@ export async function getIncidentByIdWithDronesLeftJoin(incidentId: number) {
       incidents.id AS incident_id,
       incidents.category AS incident_category,
       incidents.coordinates AS incident_coordinates,
+      incidents.day AS incident_day,
       drones.registrationData AS drone_registration_data,
       drones.origin AS drone_origin
     FROM
@@ -133,14 +138,15 @@ export async function getIncidentByIdWithDronesLeftJoin(incidentId: number) {
 }
 
 export async function createIncident(
-  category: string;
-  coordinates: {}[];
+  category: string,
+  coordinates: string,
+  day: string,
 ) {
   const [incident] = await sql<Incident[]>`
     INSERT INTO incidents
-      (category, coordinates)
+      (category, coordinates, day)
     VALUES
-      (${category}, ${coordinates})
+      (${category}, ${coordinates}, ${day})
     RETURNING *
   `;
   return incident;
@@ -149,7 +155,8 @@ export async function createIncident(
 export async function updateIncidentById(
   id: number,
   category: string,
-  coordinates: {}[];
+  coordinates: string,
+  day: string,
 ) {
   const [incident] = await sql<Incident[]>`
     UPDATE
@@ -157,6 +164,7 @@ export async function updateIncidentById(
     SET
       category = ${category},
       coordinates = ${coordinates}
+      day = ${day}
     WHERE
       id = ${id}
     RETURNING *
