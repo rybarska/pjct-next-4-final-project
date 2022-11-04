@@ -12,7 +12,7 @@ export default function Footer() {
     <footer css={footerStyles}>
       <a>
         <Image
-          src={`/images/favicon.ico`}
+          src={`/images/favicon1.ico`}
           alt="drone flying in outer space"
           width="20"
           height="20"
