@@ -71,7 +71,7 @@ export default function Header(props) {
           <div css={navStyles}>
             <Link href="/">Home</Link>
             <Link href="/about">About</Link>
-            <Link href="/privateProfile">Private-profile</Link>
+            <Link href="/private-profile">Profile</Link>
           </div>
           {props.user && props.user.username}
           {props.user ? (

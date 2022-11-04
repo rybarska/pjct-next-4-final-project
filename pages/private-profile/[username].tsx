@@ -1,6 +1,10 @@
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
-import { getUserByUsername, User } from '../../database/users';
+import {
+  getUserBySessionToken,
+  getUserByUsername,
+  User,
+} from '../../database/users';
 
 type Props = {
   user?: User;
@@ -33,14 +37,37 @@ export default function UserProfile(props: Props) {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const token = context.req.cookies.sessionToken;
   // Retrieve the username from the URL
   const username = context.query.username as string;
+  console.log(username);
 
   const user = await getUserByUsername(username.toLowerCase());
 
   if (!user) {
     context.res.statusCode = 404;
     return { props: {} };
+  }
+
+  const userCheck = token && (await getUserBySessionToken(token));
+  console.log(userCheck);
+
+  if (!userCheck) {
+    return {
+      redirect: {
+        destination: '/login?returnTo=/',
+        permanent: false,
+      },
+    };
+  }
+
+  if (userCheck.username !== username) {
+    return {
+      redirect: {
+        destination: '/login?returnTo=/',
+        permanent: false,
+      },
+    };
   }
 
   return {
