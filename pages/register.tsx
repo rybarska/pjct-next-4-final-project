@@ -25,7 +25,7 @@ const formStyles = css`
     rgba(241, 245, 255, 1) 100%
   );
   box-sizing: border-box;
-  width: 36%;
+  width: 500px;
   border: solid #7c729a 6px;
 `;
 
