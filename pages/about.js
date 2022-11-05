@@ -33,8 +33,8 @@ export default function About() {
         <a>
           <Image
             css={imageStyles}
-            src={`/images/spaceDroneCompLab2.jpeg`}
-            alt="drone flying in outer space"
+            src={`/images/spaceDroneScreens.png`}
+            alt="computer screens with drones flying in space"
             width="400"
             height="400"
           />

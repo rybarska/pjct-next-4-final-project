@@ -20,105 +20,105 @@ export default function Home() {
       <a>
         <Image
           css={imageStyles}
-          src={`/images/spaceDrone18.jpeg`}
+          src={`/images/spaceDrone1.png`}
           alt="drone flying in outer space"
           width="300"
           height="300"
         />
         <Image
           css={imageStyles}
-          src={`/images/spaceDrone13.jpeg`}
+          src={`/images/spaceDrone2.png`}
           alt="drone flying in outer space"
           width="300"
           height="300"
         />
         <Image
           css={imageStyles}
-          src={`/images/spaceDrone33.jpeg`}
+          src={`/images/spaceDrone3.png`}
           alt="drone flying in outer space"
           width="300"
           height="300"
         />
         <Image
           css={imageStyles}
-          src={`/images/spaceDrone21.jpeg`}
+          src={`/images/spaceDrone4.png`}
           alt="drone flying in outer space"
           width="300"
           height="300"
         />
         <Image
           css={imageStyles}
-          src={`/images/spaceDrone30.jpeg`}
+          src={`/images/spaceDrone5.png`}
           alt="drone flying in outer space"
           width="300"
           height="300"
         />
         <Image
           css={imageStyles}
-          src={`/images/spaceDrone25.jpeg`}
+          src={`/images/spaceDrone6.png`}
           alt="drone flying in outer space"
           width="300"
           height="300"
         />
         <Image
           css={imageStyles}
-          src={`/images/spaceDrone16.jpeg`}
+          src={`/images/spaceDrone7.png`}
           alt="drone flying in outer space"
           width="300"
           height="300"
         />
         <Image
           css={imageStyles}
-          src={`/images/spaceDrone28.jpeg`}
+          src={`/images/spaceDrone8.png`}
           alt="drone flying in outer space"
           width="300"
           height="300"
         />
         <Image
           css={imageStyles}
-          src={`/images/spaceDrone26.jpeg`}
+          src={`/images/spaceDrone9.png`}
           alt="drone flying in outer space"
           width="300"
           height="300"
         />
         <Image
           css={imageStyles}
-          src={`/images/spaceDrone14.jpeg`}
+          src={`/images/spaceDrone10.png`}
           alt="drone flying in outer space"
           width="300"
           height="300"
         />
         <Image
           css={imageStyles}
-          src={`/images/spaceDrone2.jpeg`}
+          src={`/images/spaceDrone11.png`}
           alt="drone flying in outer space"
           width="300"
           height="300"
         />
         <Image
           css={imageStyles}
-          src={`/images/spaceDrone4.jpeg`}
+          src={`/images/spaceDrone12.png`}
           alt="drone flying in outer space"
           width="300"
           height="300"
         />
         <Image
           css={imageStyles}
-          src={`/images/spaceDrone34.jpeg`}
+          src={`/images/spaceDrone13.png`}
           alt="drone flying in outer space"
           width="300"
           height="300"
         />
         <Image
           css={imageStyles}
-          src={`/images/spaceDrone35.jpeg`}
+          src={`/images/spaceDrone14.png`}
           alt="drone flying in outer space"
           width="300"
           height="300"
         />
         <Image
           css={imageStyles}
-          src={`/images/spaceDrone36.jpeg`}
+          src={`/images/spaceDrone15.png`}
           alt="drone flying in outer space"
           width="300"
           height="300"
