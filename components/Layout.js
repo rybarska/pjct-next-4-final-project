@@ -14,7 +14,7 @@ export default function Layout(props) {
   return (
     <>
       <Head>
-        <link rel="icon" href="/images/favicon1.ico" />
+        <link rel="icon" href="/images/favicon.ico" />
       </Head>
 
       <div>
