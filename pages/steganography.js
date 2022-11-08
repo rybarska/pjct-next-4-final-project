@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 import Head from 'next/head';
 import Image from 'next/image';
+import { useCallback, useEffect, useState } from 'react';
 
 const formStyles = css`
   display: block;
@@ -21,7 +22,7 @@ const formStyles = css`
     rgba(241, 245, 255, 1) 100%
   );
   box-sizing: border-box;
-  width: 500px;
+  width: 98%;
   border: solid #7c729a 6px;
 `;
 
@@ -46,17 +47,25 @@ const buttonStyles = css`
 `;
 
 export default function Steganography() {
-  function readURL(input) {
-    if (input.files && input.files[0]) {
-      var reader = new FileReader();
+  const [image, setImage] = useState(null);
+  const [textFile, settextFile] = useState(null);
+  const [createObjectURL, setCreateObjectURL] = useState(null);
+  const uploadToClient = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      const i = event.target.files[0];
 
-      reader.onload = function (e) {
-        $(target).attr('src', e.target.result);
-      };
-
-      reader.readAsDataURL(input.files[0]); // convert to base64 string
+      setImage(i);
+      setCreateObjectURL(URL.createObjectURL(i));
     }
-  }
+  };
+  const uploadToServer = async (event) => {
+    const body = new FormData();
+    body.append('file', image);
+    const response = await fetch('/api/file', {
+      method: 'POST',
+      body,
+    });
+  };
   return (
     <>
       <Head>
@@ -65,43 +74,34 @@ export default function Steganography() {
         <link rel="icon" href="/images/favicon.ico" />
       </Head>
       <div>Steganography</div>
-      <br></br>
-      <div css={formStyles}>
-        {/* <input
-          css={inputStyles}
-          type="file"
-          name="img"
-          id=""
-          accept="image/png"
-          onChange={(event) => {
-            readURL(this);
-          }}
-        ></input> */}
-        <img id="output" src="" width="100" height="100" />
+      <form
+        css={formStyles}
+        action="/send-data-here"
+        method="post"
+        onSubmit={(event) => {
+          event.preventDefault();
+        }}
+      >
+        <div>
+          <h4>Select Image</h4>
+          <img id="output" src={createObjectURL} />
+          <input type="file" name="myImage" onChange={uploadToClient} />
+        </div>
+      </form>
+      {/* <div>
+          <h4>Select text file</h4>
+          <div id="output" src={createObjectURL}></div>
+          <input type="file" name="myText" onChange={uploadToClient} />
+        </div> /*}
 
-        <input
-          name="photo"
-          type="file"
-          accept="image/png"
-          onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])"
-        ></input>
-        <div>Source image:</div>
-        <img id="image1" src="" alt=""></img>
-        <input css={inputStyles} id="text" type="text"></input>
-        <button css={buttonStyles} onClick="hideText()">
-          Hide message into image
-        </button>
-        <img id="image2" src="" alt=""></img>
-        <input
-          css={inputStyles}
-          type="file"
-          name="img1"
-          id=""
-          accept="image/*"
-          onChange="decode(this)"
-        ></input>
-        <h2 id="decoded">Decoded text</h2>
-      </div>
+
+      {/* <button
+        className="btn btn-primary"
+        type="submit"
+        onClick={uploadToServer}
+      >
+        Send to server
+      </button> */}
     </>
   );
 }
