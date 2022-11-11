@@ -1,4 +1,3 @@
-import fs from 'node:fs';
 import { css } from '@emotion/react';
 import { ProgressBar } from '@open-tech-world/cli-progress-bar';
 import { load } from 'cheerio';
