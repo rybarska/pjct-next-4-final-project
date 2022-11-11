@@ -48,7 +48,7 @@ export default async function handler(
     /* const stegResult = await encode(carrierImage, dataFile);
     return response.status(200).json(stegResult); */
 
-    return response.status(200).json(carrierImage);
+    return response.status(200).json(carrierImage, dataFile);
   }
 
   if (request.method === 'GET') {
@@ -67,7 +67,7 @@ export default async function handler(
         .json({ message: 'GET: property carrierImage or dataFile missing' });
     }
 
-    return response.status(200).json(carrierImage);
+    return response.status(200).json(carrierImage, dataFile);
   }
 
   return response.status(400).json({ message: 'Method Not Allowed' });

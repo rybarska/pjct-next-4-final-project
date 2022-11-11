@@ -1,7 +1,11 @@
+import fs from 'node:fs';
 import { css } from '@emotion/react';
+import { ProgressBar } from '@open-tech-world/cli-progress-bar';
+import { load } from 'cheerio';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import fetch from 'node-fetch';
 import React, { useCallback, useEffect, useState } from 'react';
 
 const formStyles = css`
@@ -48,26 +52,29 @@ const buttonStyles = css`
 `;
 
 export default function Steganography() {
-  const [carrierImage, setCarrierImage] = useState(null);
   const [dataFile, setDataFile] = useState(null);
+  console.log('dataFile', dataFile);
+  const [carrierImage, setCarrierImage] = useState(null);
+  console.log('carrierImage', carrierImage);
+
   const [createObjectURL, setCreateObjectURL] = useState(null);
   // const [errors, setErrors] = useState<{ message: string }[]>([]);
   const router = useRouter();
 
-  const uploadCarrierImageToClient = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      const i = event.target.files[0];
-
-      setCarrierImage(i);
-      setCreateObjectURL(URL.createObjectURL(i));
-    }
-  };
   const uploadDataFileToClient = (event) => {
     if (event.target.files && event.target.files[0]) {
       const d = event.target.files[0];
 
       setDataFile(d);
       setCreateObjectURL(URL.createObjectURL(d));
+    }
+  };
+  const uploadCarrierImageToClient = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      const i = event.target.files[0];
+
+      setCarrierImage(i);
+      setCreateObjectURL(URL.createObjectURL(i));
     }
   };
 
@@ -90,9 +97,10 @@ export default function Steganography() {
       return console.log(encodeResponseBody.errors);
     } */
   }
-  const uploadToServer = async (event) => {
+  const uploadToServer = async () => {
     const body = new FormData();
-    body.append('file', carrierImage, dataFile);
+    body.append('myImage', carrierImage);
+    body.append('myText', dataFile);
     const response = await fetch('/api/steganography', {
       method: 'POST',
       body,
@@ -113,7 +121,10 @@ export default function Steganography() {
         method="post"
         enctype="multipart/form-data"
         onSubmit={(event) => {
+          console.log(event);
           event.preventDefault();
+          console.log(carrierImage, dataFile);
+          uploadToServer(event);
         }}
       >
         <fieldset>
@@ -124,8 +135,13 @@ export default function Steganography() {
               type="file"
               name="myText"
               accept="text"
-              onChange={(uploadDataFileToClient, setDataFile)}
               required
+              onChange={(event) => {
+                console.log(event);
+                event.preventDefault();
+                setDataFile(event.currentTarget.files[0]);
+                // uploadToServer(event);
+              }}
             />
           </label>
         </fieldset>
@@ -137,44 +153,23 @@ export default function Steganography() {
               type="file"
               name="myImage"
               accept="image/png"
-              onChange={(uploadCarrierImageToClient, setCarrierImage)}
               required
+              onChange={(event) => {
+                console.log(event);
+                event.preventDefault();
+                setCarrierImage(event.currentTarget.files[0]);
+                // uploadToServer(event);
+              }}
             />
           </label>
           <img src={createObjectURL} />
         </fieldset>
         <div>
-          <button
-            className="btn btn-primary"
-            type="submit"
-            onClick={uploadToServer}
-          >
+          <button className="btn btn-primary" type="submit">
             Send to server
           </button>
         </div>
       </form>
-      {/* <button
-        className="btn btn-primary"
-        type="submit"
-        onClick={uploadToServer}
-      >
-        Send to server
-      </button> */}
-
-      {/* <div>
-          <h4>Select text file</h4>
-          <div id="output" src={createObjectURL}></div>
-          <input type="file" name="myText" onChange={uploadToClient} />
-        </div> /*}
-
-
-      {/* <button
-        className="btn btn-primary"
-        type="submit"
-        onClick={uploadToServer}
-      >
-        Send to server
-      </button> */}
     </>
   );
 }
