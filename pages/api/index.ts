@@ -7,5 +7,7 @@ export default function handler(
   response: NextApiResponse,
 ) {
   // This is the response for any method on this endpoint
-  response.status(200).json({ animals: 'http://localhost:3000/api/animals' });
+  response
+    .status(200)
+    .json({ incidents: 'http://localhost:3000/api/incidents' });
 }

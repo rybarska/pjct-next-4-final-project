@@ -1,0 +1,162 @@
+import { sql } from './connect';
+
+export type CarrierImage = {
+  id: number;
+  image: string;
+};
+
+export type DataFile = {
+  id: number;
+  text: string;
+};
+
+export type CarrierImageWithDataFiles = {
+  carrierImageId: number;
+  carrierImageImage: string;
+  datFileText: string;
+};
+
+export type IncidentWithDronesLeftJoin = {
+  carrierImageId: number;
+  carrierImageImage: string;
+  datFileText: string;
+};
+
+// Get all carrierImages
+export async function getCarrierImages() {
+  const carrierImages = await sql<CarrierImage[]>`
+    SELECT * FROM carrierImages
+  `;
+  return carrierImages;
+}
+
+// Get a single carrierImage by id
+export async function getcarrierImageById(id: number) {
+  const [carrierImage] = await sql<CarrierImage[]>`
+    SELECT
+      *
+    FROM
+      carrierImages
+    WHERE
+      id = ${id}
+  `;
+  return carrierImage;
+}
+
+// Get a single carrierImage by id and valid session token
+export async function getCarrierImageByIdAndValidSessionToken(
+  id: number,
+  token: string | undefined,
+) {
+  if (!token) return undefined;
+  // STRETCH: Update this adding a role to the users and matching it with the session token
+  const [carrierImage] = await sql<CarrierImage[]>`
+    SELECT
+      carrierImages.*
+    FROM
+      carrierImages,
+      sessions
+    WHERE
+      sessions.token = ${token}
+    AND
+      sessions.expiry_timestamp > now()
+    AND
+      carrierImages.id = ${id}
+  `;
+  return carrierImage;
+}
+
+// Alternative method: accept id of undefined
+// // Get a single carrierImage by id
+// export async function getCarrierImageById(id: number | undefined) {
+//   if (!id) return undefined;
+//   const [carrierImage] = await sql<CarrierImage[]>`
+//     SELECT
+//       *
+//     FROM
+//       carrierImages
+//     WHERE
+//       id = ${id}
+//   `;
+//   return carrierImage;
+// }
+
+export async function getCarrierImageByIdWithDataFiles(carrierImageId: number) {
+  const carrierImageWithDataFiles = await sql<CarrierImageWithDataFiles[]>`
+    SELECT
+      carrierImages.id AS carrierImage_id,
+      carrierImages.image AS carrierImage_image,
+      dataFiles.text AS dataFiles_text,
+    FROM
+      carrierImages
+    INNER JOIN
+      carrierImages_dataFiles ON carrierImages.id = carrierImages_dataFiles.carrierImage_id
+    INNER JOIN
+      dataFiles ON carrierImages_dataFiles.dataFile_id = dataFiles.id
+    WHERE
+      carrierImages.id = ${carrierImageId}
+  `;
+
+  return carrierImageWithDataFiles;
+}
+
+// In case you still want the carrierImage information
+// when the carrierImage is not related to any dataFiles,
+// use the LEFT JOIN instead of INNER JOIN
+export async function getCarrierImageByIdWithDataFilesLeftJoin(
+  carrierImageId: number,
+) {
+  const carrierImageWithDataFiles = await sql<
+    CarrierImageWithDataFilesLeftJoin[]
+  >`
+    SELECT
+      carrierImages.id AS carrierImage_id,
+      carrierImages.image AS carrierImage_image,
+      dataFiles.text AS dataFiles_text,
+    FROM
+      carrierImages
+    LEFT JOIN
+      carrierImages_dataFiles ON carrierImages.id = carrierImages_dataFiles.carrierImage_id
+    LEFT JOIN
+      dataFiles ON carrierImages_dataFiles.dataFile_id = dataFiles.id
+    WHERE
+      carrierImages.id = ${carrierImageId}
+  `;
+
+  return carrierImageWithDataFiles;
+}
+
+export async function createCarrierImage(image: string) {
+  const [carrierImage] = await sql<CarrierImage[]>`
+    INSERT INTO carrierImages
+      (image)
+    VALUES
+      (${image})
+    RETURNING *
+  `;
+  return carrierImage;
+}
+
+export async function updateCarrierImageById(id: number, image: string) {
+  const [carrierImage] = await sql<CarrierImage[]>`
+    UPDATE
+      carrierImages
+    SET
+      image = ${image}
+    WHERE
+      id = ${id}
+    RETURNING *
+  `;
+  return carrierImage;
+}
+
+export async function deleteCarrierImageById(id: number) {
+  const [carrierImage] = await sql<CarrierImage[]>`
+    DELETE FROM
+      carrierImages
+    WHERE
+      id = ${id}
+    RETURNING *
+  `;
+  return carrierImage;
+}

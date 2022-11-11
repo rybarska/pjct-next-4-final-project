@@ -1,7 +1,8 @@
 import { css } from '@emotion/react';
 import Head from 'next/head';
 import Image from 'next/image';
-import { useCallback, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import React, { useCallback, useEffect, useState } from 'react';
 
 const formStyles = css`
   display: block;
@@ -22,7 +23,7 @@ const formStyles = css`
     rgba(241, 245, 255, 1) 100%
   );
   box-sizing: border-box;
-  width: 98%;
+  width: 70%;
   border: solid #7c729a 6px;
 `;
 
@@ -47,47 +48,119 @@ const buttonStyles = css`
 `;
 
 export default function Steganography() {
-  const [image, setImage] = useState(null);
-  const [textFile, settextFile] = useState(null);
+  const [carrierImage, setCarrierImage] = useState(null);
+  const [dataFile, setDataFile] = useState(null);
   const [createObjectURL, setCreateObjectURL] = useState(null);
-  const uploadToClient = (event) => {
+  // const [errors, setErrors] = useState<{ message: string }[]>([]);
+  const router = useRouter();
+
+  const uploadCarrierImageToClient = (event) => {
     if (event.target.files && event.target.files[0]) {
       const i = event.target.files[0];
 
-      setImage(i);
+      setCarrierImage(i);
       setCreateObjectURL(URL.createObjectURL(i));
     }
   };
+  const uploadDataFileToClient = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      const d = event.target.files[0];
+
+      setDataFile(d);
+      setCreateObjectURL(URL.createObjectURL(d));
+    }
+  };
+
+  async function encodeHandler() {
+    const registerResponse = await fetch('/api/steganography', {
+      method: 'POST',
+      /* headers: {
+        'content-type': 'application/json',
+      }, */
+      body: JSON.stringify({
+        carrierImage,
+        dataFile,
+      }),
+    });
+    /* const encodeResponseBody =
+      (await encodeResponse.json()) as EncodeResponseBody; */
+
+    /* if ('errors' in encodeResponseBody) {
+      setErrors(encodeResponseBody.errors);
+      return console.log(encodeResponseBody.errors);
+    } */
+  }
   const uploadToServer = async (event) => {
     const body = new FormData();
-    body.append('file', image);
-    const response = await fetch('/api/file', {
+    body.append('file', carrierImage, dataFile);
+    const response = await fetch('/api/steganography', {
       method: 'POST',
       body,
     });
   };
+
   return (
     <>
       <Head>
         <title>Steganography</title>
         <meta name="description" content="Steganography" />
-        <link rel="icon" href="/images/favicon.ico" />
+        <link rel="icon" href="/images/favicon2.ico" />
       </Head>
       <div>Steganography</div>
       <form
         css={formStyles}
-        action="/send-data-here"
+        action="/api/steganography"
         method="post"
+        enctype="multipart/form-data"
         onSubmit={(event) => {
           event.preventDefault();
         }}
       >
+        <fieldset>
+          <h4>Select text file to hide</h4>
+          <label for="dataFile">
+            <input
+              css={inputStyles}
+              type="file"
+              name="myText"
+              accept="text"
+              onChange={(uploadDataFileToClient, setDataFile)}
+              required
+            />
+          </label>
+        </fieldset>
+        <fieldset>
+          <h4>Select carrier image</h4>
+          <label for="carrierImage">
+            <input
+              css={inputStyles}
+              type="file"
+              name="myImage"
+              accept="image/png"
+              onChange={(uploadCarrierImageToClient, setCarrierImage)}
+              required
+            />
+          </label>
+          <img src={createObjectURL} />
+        </fieldset>
         <div>
-          <h4>Select Image</h4>
-          <img id="output" src={createObjectURL} />
-          <input type="file" name="myImage" onChange={uploadToClient} />
+          <button
+            className="btn btn-primary"
+            type="submit"
+            onClick={uploadToServer}
+          >
+            Send to server
+          </button>
         </div>
       </form>
+      {/* <button
+        className="btn btn-primary"
+        type="submit"
+        onClick={uploadToServer}
+      >
+        Send to server
+      </button> */}
+
       {/* <div>
           <h4>Select text file</h4>
           <div id="output" src={createObjectURL}></div>

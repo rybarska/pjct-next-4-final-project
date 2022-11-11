@@ -46,7 +46,7 @@ export default function SinglePhoto(props: Props) {
         <Head>
           <title>Photo not found</title>
           <meta name="description" content="Photo not found" />
-          <link rel="icon" href="/images/favicon.ico" />
+          <link rel="icon" href="/images/favicon2.ico" />
         </Head>
         <h1>{props.error}</h1>
         Sorry, try the <Link href="/photos">photos page</Link>

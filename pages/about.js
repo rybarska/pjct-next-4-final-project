@@ -19,7 +19,7 @@ export default function About() {
       <Head>
         <title>About</title>
         <meta name="description" content="Home" />
-        <link rel="icon" href="/images/favicon.ico" />
+        <link rel="icon" href="/images/favicon2.ico" />
       </Head>
 
       <div>About</div>

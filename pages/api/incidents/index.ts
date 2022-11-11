@@ -36,6 +36,7 @@ export default async function handler(
 
     const category = request.body?.category;
     const coordinates = request.body?.coordinates;
+    const day = request.body?.day;
     const csrfToken = request.body?.csrfToken;
 
     if (!(await validateTokenWithSecret(session.csrfSecret, csrfToken))) {
@@ -43,16 +44,16 @@ export default async function handler(
     }
 
     // Check all the information to create the incident exists
-    if (!(category && coordinates)) {
+    if (!(category && coordinates && day)) {
       return response
         .status(400)
-        .json({ message: 'property category or coordinates missing' });
+        .json({ message: 'property category, coordinates or day missing' });
     }
 
     // TODO: add type checking to the api
 
     // Create the incident using the database util function
-    const newIncident = await createIncident(category, coordinates);
+    const newIncident = await createIncident(category, coordinates, day);
 
     // response with the new created incident
     return response.status(200).json(newIncident);

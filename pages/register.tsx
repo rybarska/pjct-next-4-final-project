@@ -99,7 +99,7 @@ export default function Register(props: Props) {
       <Head>
         <title>Register</title>
         <meta name="description" content="Register new users" />
-        <link rel="icon" href="/images/favicon.ico" />
+        <link rel="icon" href="/images/favicon2.ico" />
       </Head>
       <div>Register</div>
       <br></br>

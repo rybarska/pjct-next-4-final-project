@@ -103,7 +103,7 @@ export default function Login(props: Props) {
       <Head>
         <title>Login</title>
         <meta name="description" content="Login new users" />
-        <link rel="icon" href="/images/favicon.ico" />
+        <link rel="icon" href="/images/favicon2.ico" />
       </Head>
       <div>Login</div>
       <br></br>

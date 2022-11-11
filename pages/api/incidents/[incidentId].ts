@@ -60,12 +60,13 @@ export default async function handler(
     // NOT getting the id from the body since is already on the query
     const category = request.body?.category;
     const coordinates = request.body?.coordinates;
+    const day = request.body?.day;
 
     // Check all the information to create the incident exists
-    if (!(category && coordinates)) {
+    if (!(category && coordinates && day)) {
       return response
         .status(400)
-        .json({ message: 'property category or coordinates missing' });
+        .json({ message: 'property category, coordinates or day missing' });
     }
 
     // TODO: add type checking to the api
@@ -75,6 +76,7 @@ export default async function handler(
       incidentId,
       category,
       coordinates,
+      day,
     );
 
     if (!newIncident) {
