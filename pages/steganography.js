@@ -5,7 +5,6 @@ import { load } from 'cheerio';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import fetch from 'node-fetch';
 import React, { useCallback, useEffect, useState } from 'react';
 
 const formStyles = css`
