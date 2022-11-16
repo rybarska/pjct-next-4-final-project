@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 import { ProgressBar } from '@open-tech-world/cli-progress-bar';
 import { load } from 'cheerio';
+import FormData from 'form-data';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -76,32 +77,25 @@ export default function Steganography() {
     }
   };
 
-  async function encodeHandler() {
-    const registerResponse = await fetch('/api/steganography', {
-      method: 'POST',
-      /* headers: {
-        'content-type': 'application/json',
-      }, */
-      body: JSON.stringify({
-        carrierImage,
-        dataFile,
-      }),
-    });
-    /* const encodeResponseBody =
-      (await encodeResponse.json()) as EncodeResponseBody; */
-
-    /* if ('errors' in encodeResponseBody) {
-      setErrors(encodeResponseBody.errors);
-      return console.log(encodeResponseBody.errors);
-    } */
-  }
-  const uploadToServer = async () => {
-    const body = new FormData();
-    body.append('myImage', carrierImage);
-    body.append('myText', dataFile);
+  /* const uploadToServer = async () => {
+    const carrierImage = uploadToServer('file').files[0];
+    const dataFile = uploadToServer('file').files[0];
+    const formData = new FormData();
+    formData.append('myImage', carrierImage);
+    formData.append('myText', dataFile);
     const response = await fetch('/api/steganography', {
       method: 'POST',
-      body,
+      body: formData,
+    });
+  }; */
+
+  const uploadToServer = async () => {
+    const formData = new FormData();
+    formData.append('myImage', carrierImage);
+    formData.append('myText', dataFile);
+    const response = await fetch('/api/steganography', {
+      method: 'POST',
+      body: formData,
     });
   };
 
