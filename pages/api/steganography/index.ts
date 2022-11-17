@@ -1,5 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
+import { execa } from 'execa';
 import FormData from 'form-data';
 import formidable, {
   BufferEncoding,
@@ -76,7 +77,8 @@ export default async function handler(
         const endingFile2 = dataWithoutFirstFile.indexOf('------Web');
         const file2 = dataWithoutFirstFile.slice(beginningFile2, endingFile2);
         console.log('file 2', file2);
-        response.status(200).json({ data: null, error: 'Success' });
+        return file1;
+        // response.status(200).json({ data: null, error: 'Success' });
       });
 
       //res.status(200).json({ data: null, error: "Success1" });
