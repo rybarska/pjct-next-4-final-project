@@ -129,7 +129,6 @@ export default function Steganography() {
               accept="text"
               required
               onChange={(event) => {
-                console.log(event);
                 event.preventDefault();
                 setDataFile(event.currentTarget.files[0]);
                 // uploadToServer(event);
@@ -147,7 +146,6 @@ export default function Steganography() {
               accept="image/png"
               required
               onChange={(event) => {
-                console.log(event);
                 event.preventDefault();
                 setCarrierImage(event.currentTarget.files[0]);
                 // uploadToServer(event);

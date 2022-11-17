@@ -60,11 +60,22 @@ export default async function handler(
         } catch (e) {
           console.log('Data : ', e);
         }
+        //console.log(data);
       });
       request.on('end', () => {
         console.log('No more data');
-        console.log('\nSerialize : ', serialize(data));
-        console.log('\nData string : ', data.toString());
+        // console.log('\nSerialize : ', serialize(data));
+        // console.log('\nData string : ', data.toString());
+        const stringifiedData = data.toString().slice(42);
+        const beginningFile1 = stringifiedData.indexOf('Content-Type');
+        const endingFile1 = stringifiedData.indexOf('------Web');
+        const file1 = stringifiedData.slice(beginningFile1, endingFile1);
+        const dataWithoutFirstFile = stringifiedData.slice(endingFile1 + 42);
+        console.log(dataWithoutFirstFile);
+        const beginningFile2 = dataWithoutFirstFile.indexOf('Content-Type');
+        const endingFile2 = dataWithoutFirstFile.indexOf('------Web');
+        const file2 = dataWithoutFirstFile.slice(beginningFile2, endingFile2);
+        console.log('file 2', file2);
         response.status(200).json({ data: null, error: 'Success' });
       });
 
