@@ -63,10 +63,12 @@ export default async function handler(
         }
         //console.log(data);
       });
+      let carrierImage;
+      let dataFile;
       request.on('end', () => {
         console.log('No more data');
-        // console.log('\nSerialize : ', serialize(data));
-        // console.log('\nData string : ', data.toString());
+        //console.log('\nSerialize : ', serialize(data));
+        //console.log('\nData string : ', data.toString());
         const stringifiedData = data.toString().slice(42);
         const beginningFile1 = stringifiedData.indexOf('Content-Type');
         const endingFile1 = stringifiedData.indexOf('------Web');
@@ -77,7 +79,11 @@ export default async function handler(
         const endingFile2 = dataWithoutFirstFile.indexOf('------Web');
         const file2 = dataWithoutFirstFile.slice(beginningFile2, endingFile2);
         console.log('file 2', file2);
-        return file1;
+        carrierImage = file1;
+        dataFile = file2;
+        console.log(carrierImage, dataFile);
+
+        return { carrierImage, dataFile };
         // response.status(200).json({ data: null, error: 'Success' });
       });
 
@@ -88,6 +94,8 @@ export default async function handler(
       return;
     }
 
+    // console.log(carrierImage, dataFile);
+
     /* const carrierImage = request.body?.carrierImage;
     const dataFile = request.body?.dataFile; */
 
@@ -97,16 +105,16 @@ export default async function handler(
       return response.status(401).json({ message: 'csrf_token is not valid' });
     } */
 
-    if (!(carrierImage && dataFile)) {
+    /* if (!(carrierImage && dataFile)) {
       return response
         .status(400)
         .json({ message: 'POST: property carrierImage or dataFile missing' });
-    }
+    } */
 
     /* const stegResult = await encode(carrierImage, dataFile);
     return response.status(200).json(stegResult); */
 
-    return response.status(200).json(carrierImage, dataFile);
+    return response.status(200).json('POST: say something');
   }
 
   if (request.method === 'GET') {
@@ -119,11 +127,11 @@ export default async function handler(
     const carrierImage = request.body?.carrierImage;
     const dataFile = request.body?.dataFile;
 
-    if (!(carrierImage && dataFile)) {
+    /* if (!(carrierImage && dataFile)) {
       return response
         .status(400)
         .json({ message: 'GET: property carrierImage or dataFile missing' });
-    }
+    } */
 
     return response.status(200).json(carrierImage, dataFile);
   }

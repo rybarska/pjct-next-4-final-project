@@ -115,7 +115,7 @@ export default function Steganography() {
         onSubmit={(event) => {
           console.log(event);
           event.preventDefault();
-          console.log(carrierImage, dataFile);
+          console.log(dataFile);
           uploadToServer(event);
         }}
       >
@@ -136,6 +136,24 @@ export default function Steganography() {
             />
           </label>
         </fieldset>
+        <div>
+          <button className="btn btn-primary" type="submit">
+            Send to server
+          </button>
+        </div>
+      </form>
+      <form
+        css={formStyles}
+        action="/api/steganography"
+        method="post"
+        enctype="multipart/form-data"
+        onSubmit={(event) => {
+          console.log(event);
+          event.preventDefault();
+          console.log(carrierImage);
+          uploadToServer(event);
+        }}
+      >
         <fieldset>
           <h4>Select carrier image</h4>
           <label for="carrierImage">
