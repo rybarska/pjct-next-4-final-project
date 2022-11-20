@@ -77,22 +77,18 @@ export default function Steganography() {
     }
   };
 
-  /* const uploadToServer = async () => {
-    const carrierImage = uploadToServer('file').files[0];
-    const dataFile = uploadToServer('file').files[0];
+  const uploadDataFileToServer = async () => {
     const formData = new FormData();
-    formData.append('myImage', carrierImage);
     formData.append('myText', dataFile);
     const response = await fetch('/api/steganography', {
       method: 'POST',
       body: formData,
     });
-  }; */
+  };
 
-  const uploadToServer = async () => {
+  const uploadCarrierImageToServer = async () => {
     const formData = new FormData();
     formData.append('myImage', carrierImage);
-    formData.append('myText', dataFile);
     const response = await fetch('/api/steganography', {
       method: 'POST',
       body: formData,
@@ -116,64 +112,48 @@ export default function Steganography() {
           console.log(event);
           event.preventDefault();
           console.log(dataFile);
-          uploadToServer(event);
+          uploadDataFileToServer(event);
+          uploadCarrierImageToServer(event);
         }}
       >
-        <fieldset>
-          <h4>Select text file to hide</h4>
-          <label for="dataFile">
-            <input
-              css={inputStyles}
-              type="file"
-              name="myText"
-              accept="text"
-              required
-              onChange={(event) => {
-                event.preventDefault();
-                setDataFile(event.currentTarget.files[0]);
-                // uploadToServer(event);
-              }}
-            />
-          </label>
-        </fieldset>
+        <h4>Select text file to hide</h4>
+        <label for="dataFile">
+          <input
+            css={inputStyles}
+            type="file"
+            name="myText"
+            accept="text"
+            required
+            onChange={(event) => {
+              event.preventDefault();
+              setDataFile(event.currentTarget.files[0]);
+              //uploadDataFileToClient;
+            }}
+          />
+        </label>
+        <br></br>
+        <br></br>
+
+        <h4>Select carrier image</h4>
+        <label for="carrierImage">
+          <input
+            css={inputStyles}
+            type="file"
+            name="myImage"
+            accept="image/png"
+            required
+            onChange={(event) => {
+              event.preventDefault();
+              setCarrierImage(event.currentTarget.files[0]);
+              uploadCarrierImageToClient(event);
+            }}
+          />
+        </label>
+        <img src={createObjectURL} />
+        <br></br>
+        <br></br>
         <div>
-          <button className="btn btn-primary" type="submit">
-            Send to server
-          </button>
-        </div>
-      </form>
-      <form
-        css={formStyles}
-        action="/api/steganography"
-        method="post"
-        enctype="multipart/form-data"
-        onSubmit={(event) => {
-          console.log(event);
-          event.preventDefault();
-          console.log(carrierImage);
-          uploadToServer(event);
-        }}
-      >
-        <fieldset>
-          <h4>Select carrier image</h4>
-          <label for="carrierImage">
-            <input
-              css={inputStyles}
-              type="file"
-              name="myImage"
-              accept="image/png"
-              required
-              onChange={(event) => {
-                event.preventDefault();
-                setCarrierImage(event.currentTarget.files[0]);
-                // uploadToServer(event);
-              }}
-            />
-          </label>
-          <img src={createObjectURL} />
-        </fieldset>
-        <div>
-          <button className="btn btn-primary" type="submit">
+          <button css={buttonStyles} className="btn btn-primary" type="submit">
             Send to server
           </button>
         </div>

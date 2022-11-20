@@ -44,46 +44,64 @@ export default async function handler(
       return;
     }
 
-    // const form = new formidable.IncomingForm();
-    /* form.parse(request, async function(err, fields, files) => {
-    const response = await client.assets.upload('image', carrierImage, {contentType: carrierImage.mimetype, filename: carrierImage.originalFilename});
-    console.log(response);
-    }) */
+    /* async function doSteganography(carrierImage, dataFile) {
+      await execaCommand(
+        `stegify encode --carrier carrierImageFilepath --data dataFileFilepath --result stegResultFilepath`,
+      );
+    } */
+
+    function formidablePromise(request) {
+      let dataFileFilepath;
+      let carrierImageFilepath;
+      return new Promise((resolve, reject) => {
+        const form = new formidable.IncomingForm();
+        form.parse(request, (err, fields, files) => {
+          if (err) return reject(err);
+          resolve({ fields, files });
+        });
+        form.on('file', function (name, file) {
+          console.log('New name ' + file.newFilename);
+          console.log('Filepath ' + file.filepath);
+          console.log('Uploaded ' + file.originalFilename);
+
+          /* return execa.command(
+            `stegify encode --carrier carrierImage --data dataFile --result stegResult`,
+          ); */
+          if (file.mimetype === 'text/rtf') {
+            dataFileFilepath = file.filepath;
+            console.log('dataFileFilepath ' + dataFileFilepath);
+          }
+          if (file.mimetype === 'image/png') {
+            carrierImageFilepath = file.filepath;
+            console.log('carrierImageFilepath ' + carrierImageFilepath);
+          } else {
+            return;
+          }
+        });
+      });
+    }
 
     try {
       let data = '';
       request.on('data', (chunk) => {
         try {
-          //console.log("To JSON : ",chunk.toJSON())
-          //console.log("To String : ",chunk.toString())
-          //console.log(chunk.isEncoding())
+          // console.log("To JSON : ",chunk.toJSON())
+          // console.log("To String : ",chunk.toString())
+          // console.log(chunk.isEncoding())
           data += chunk;
         } catch (e) {
           console.log('Data : ', e);
         }
         //console.log(data);
       });
+      const form = await formidablePromise(request);
+      // console.log(form, '...Form');
       let carrierImage;
       let dataFile;
       request.on('end', () => {
         console.log('No more data');
-        //console.log('\nSerialize : ', serialize(data));
-        //console.log('\nData string : ', data.toString());
-        const stringifiedData = data.toString().slice(42);
-        const beginningFile1 = stringifiedData.indexOf('Content-Type');
-        const endingFile1 = stringifiedData.indexOf('------Web');
-        const file1 = stringifiedData.slice(beginningFile1, endingFile1);
-        const dataWithoutFirstFile = stringifiedData.slice(endingFile1 + 42);
-        console.log(dataWithoutFirstFile);
-        const beginningFile2 = dataWithoutFirstFile.indexOf('Content-Type');
-        const endingFile2 = dataWithoutFirstFile.indexOf('------Web');
-        const file2 = dataWithoutFirstFile.slice(beginningFile2, endingFile2);
-        console.log('file 2', file2);
-        carrierImage = file1;
-        dataFile = file2;
-        console.log(carrierImage, dataFile);
-
-        return { carrierImage, dataFile };
+        // console.log('\nSerialize : ', serialize(data));
+        // console.log('\nData string : ', data.toString());
         // response.status(200).json({ data: null, error: 'Success' });
       });
 
