@@ -3,6 +3,7 @@ import { GetServerSidePropsResult } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { getPhotos, Photo } from '../../database/photos';
 
 const photoStyles = css`

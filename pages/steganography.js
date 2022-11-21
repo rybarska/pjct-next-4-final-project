@@ -55,6 +55,7 @@ export default function Steganography() {
   console.log('dataFile', dataFile);
   const [carrierImage, setCarrierImage] = useState(null);
   console.log('carrierImage', carrierImage);
+  const [stegImage, setStegImage] = useState(null);
 
   const [createObjectURL, setCreateObjectURL] = useState(null);
   // const [errors, setErrors] = useState<{ message: string }[]>([]);
@@ -71,24 +72,31 @@ export default function Steganography() {
   const uploadCarrierImageToClient = (event) => {
     if (event.target.files && event.target.files[0]) {
       const i = event.target.files[0];
-
       setCarrierImage(i);
       setCreateObjectURL(URL.createObjectURL(i));
     }
   };
+  const uploadStegImageToClient = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      const s = event.target.files[0];
+      setCarrierImage(s);
+      setCreateObjectURL(URL.createObjectURL(s));
+    }
+  };
 
-  const uploadDataFileToServer = async () => {
+  const uploadToServer = async () => {
     const formData = new FormData();
     formData.append('myText', dataFile);
+    formData.append('myImage', carrierImage);
     const response = await fetch('/api/steganography', {
       method: 'POST',
       body: formData,
     });
   };
 
-  const uploadCarrierImageToServer = async () => {
+  const Decode = async () => {
     const formData = new FormData();
-    formData.append('myImage', carrierImage);
+    formData.append('myStegImage', stegImage);
     const response = await fetch('/api/steganography', {
       method: 'POST',
       body: formData,
@@ -112,8 +120,7 @@ export default function Steganography() {
           console.log(event);
           event.preventDefault();
           console.log(dataFile);
-          uploadDataFileToServer(event);
-          uploadCarrierImageToServer(event);
+          uploadToServer(event);
         }}
       >
         <h4>Select text file to hide</h4>
@@ -154,7 +161,42 @@ export default function Steganography() {
         <br></br>
         <div>
           <button css={buttonStyles} className="btn btn-primary" type="submit">
-            Send to server
+            Encode text file into image
+          </button>
+        </div>
+      </form>
+      <form
+        css={formStyles}
+        action="/api/steganography"
+        method="post"
+        enctype="multipart/form-data"
+        onSubmit={(event) => {
+          console.log(event);
+          event.preventDefault();
+          Decode(event);
+        }}
+      >
+        <h4>Select image to decode</h4>
+        <label for="stegImage">
+          <input
+            css={inputStyles}
+            type="file"
+            name="myStegImage"
+            accept="image/png"
+            required
+            onChange={(event) => {
+              event.preventDefault();
+              setStegImage(event.currentTarget.files[0]);
+              uploadStegImageToClient(event);
+            }}
+          />
+        </label>
+        <img src={createObjectURL} />
+        <br></br>
+        <br></br>
+        <div>
+          <button css={buttonStyles} className="btn btn-primary" type="submit">
+            Decode
           </button>
         </div>
       </form>

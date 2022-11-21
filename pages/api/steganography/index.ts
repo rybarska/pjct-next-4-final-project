@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import { execa } from 'execa';
+import { execa, execaCommand } from 'execa';
 import FormData from 'form-data';
 import formidable, {
   BufferEncoding,
@@ -44,30 +44,39 @@ export default async function handler(
       return;
     }
 
-    /* async function doSteganography(carrierImage, dataFile) {
-      await execaCommand(
-        `stegify encode --carrier carrierImageFilepath --data dataFileFilepath --result stegResultFilepath`,
+    async function encodeStegImage(carrier, data, result) {
+      const { stdout } = await execaCommand(
+        `stegify encode --carrier ${carrier} --data ${data} --result ${result}`,
+      );
+    }
+
+    async function decodeStegImage(carrier, result) {
+      const { stdout } = await execaCommand(
+        `stegify decode --carrier ${carrier} --result ${result}`,
+      );
+    }
+
+    /* async function makeStegImage() {
+      const { stdout } = await execaCommand(
+        `stegify encode --carrier ./public/images/spaceDrone1.png --data ./public/texts/textToHide.rtf --result ./public/uploads/stegResult.png`,
       );
     } */
 
     function formidablePromise(request) {
-      let dataFileFilepath;
-      let carrierImageFilepath;
       return new Promise((resolve, reject) => {
         const form = new formidable.IncomingForm();
         form.parse(request, (err, fields, files) => {
           if (err) return reject(err);
           resolve({ fields, files });
         });
-        form.on('file', function (name, file) {
-          console.log('New name ' + file.newFilename);
-          console.log('Filepath ' + file.filepath);
-          console.log('Uploaded ' + file.originalFilename);
-
+        /* form.on('file', function (name, file) {
+          //console.log('New name ' + file.newFilename);
+          //console.log('Filepath ' + file.filepath);
+          //.log('Uploaded ' + file.originalFilename);
           /* return execa.command(
             `stegify encode --carrier carrierImage --data dataFile --result stegResult`,
           ); */
-          if (file.mimetype === 'text/rtf') {
+        /*if (file.mimetype === 'text/rtf') {
             dataFileFilepath = file.filepath;
             console.log('dataFileFilepath ' + dataFileFilepath);
           }
@@ -77,12 +86,12 @@ export default async function handler(
           } else {
             return;
           }
-        });
+        }); */
       });
     }
 
     try {
-      let data = '';
+      /*let data = '';
       request.on('data', (chunk) => {
         try {
           // console.log("To JSON : ",chunk.toJSON())
@@ -90,20 +99,28 @@ export default async function handler(
           // console.log(chunk.isEncoding())
           data += chunk;
         } catch (e) {
-          console.log('Data : ', e);
+          //console.log('Data : ', e);
         }
         //console.log(data);
-      });
+      }); */
       const form = await formidablePromise(request);
-      // console.log(form, '...Form');
-      let carrierImage;
-      let dataFile;
-      request.on('end', () => {
-        console.log('No more data');
-        // console.log('\nSerialize : ', serialize(data));
-        // console.log('\nData string : ', data.toString());
+      const carrierImageFilepath = form.files.myImage.filepath;
+      const dataFileFilepath = form.files.myText.filepath;
+      const stegResultFilepath = './public/uploads/stegResult.png';
+      console.log('dataFileFilepath ' + dataFileFilepath);
+      console.log('carrierImageFilepath ' + carrierImageFilepath);
+      const stegImage = await encodeStegImage(
+        carrierImageFilepath,
+        dataFileFilepath,
+        stegResultFilepath,
+      );
+      console.log(form, '...Form');
+      /* request.on('end', () => {
+        //console.log('No more data');
+        //console.log('\nSerialize : ', serialize(data));
+        //console.log('\nData string : ', data.toString());
         // response.status(200).json({ data: null, error: 'Success' });
-      });
+      }); */
 
       //res.status(200).json({ data: null, error: "Success1" });
     } catch (e) {
@@ -142,8 +159,6 @@ export default async function handler(
         .json({ errors: [{ message: 'No session token passed' }] });
       return;
     }
-    const carrierImage = request.body?.carrierImage;
-    const dataFile = request.body?.dataFile;
 
     /* if (!(carrierImage && dataFile)) {
       return response
@@ -151,8 +166,8 @@ export default async function handler(
         .json({ message: 'GET: property carrierImage or dataFile missing' });
     } */
 
-    return response.status(200).json(carrierImage, dataFile);
+    //return response.status(200).json(carrierImage, dataFile);
   }
 
-  return response.status(400).json({ message: 'Method Not Allowed' });
+  //return response.status(400).json({ message: 'Method Not Allowed' });
 }
