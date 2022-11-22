@@ -8,8 +8,8 @@ const upMostElementStyles = css`
   padding: 6px 0px;
   color: black;
   background-color: #f2f5fc;
-  font-size: 26px;
-  font-family: 'Courier New', Courier, monospace;
+  font-size: 30px;
+  font-family: 'Syne Mono';
 `;
 
 const logoStyles = css`
@@ -30,8 +30,10 @@ const sectionStyles = css`
 const navStyles = css`
   border-radius: 6px;
   display: flex;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: '-apple-system, BlinkMacSystemFont, ' Segoe UI
+    ', Roboto, Oxygen,
+    Ubuntu, Cantarell, ' Open Sans ', ' Helvetica Neue
+    ', sans-serif';
   > a {
     font-size: 27px;
     text-decoration: none;

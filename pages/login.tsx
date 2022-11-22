@@ -12,21 +12,20 @@ const formStyles = css`
   margin-right: auto;
   margin-top: 50px;
   margin-bottom: 50px;
-  border-radius: 15px;
+  border-radius: 10px;
   text-align: center;
   padding: 20px;
-  color: black;
+  color: white;
   font-weight: bold;
   font-size: 22px;
-  background: rgb(189, 192, 207);
-  background: linear-gradient(
-    0deg,
-    rgba(189, 192, 207, 1) 0%,
-    rgba(241, 245, 255, 1) 100%
-  );
+  background: rgb(230,227,240);
+background: linear-gradient(55deg, rgba(230,227,240,0.9910481770833334) 0%, rgba(78,71,93,1) 0%, rgba(2,1,5,1) 100%);
+  box-shadow: box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
+-webkit-box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
+-moz-box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
   box-sizing: border-box;
   width: 500px;
-  border: solid #7c729a 6px;
+  border: solid #7c729a 2px;
 `;
 
 const inputStyles = css`
@@ -36,17 +35,23 @@ const inputStyles = css`
   box-sizing: border-box;
   font-size: 22px;
   color: #180d24;
+  border-radius: 5px;
+  background-color: rgba(241, 245, 255, 1);
+  border: solid #7c729a 2px;
 `;
 
 const buttonStyles = css`
-  background-color: #2f073d;
-  color: white;
-  width: 147px;
-  height: 40px;
+  background: #fa9d00;
+  color: black;
+  width: 200px;
+  height: 50px;
   border-radius: 6px;
-  font-size: 22px;
+  font-size: 26px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      box-shadow: box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
+-webkit-box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
+-moz-box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
 `;
 
 type Props = {

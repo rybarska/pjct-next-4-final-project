@@ -56,12 +56,6 @@ export default async function handler(
       );
     }
 
-    /* async function makeStegImage() {
-      const { stdout } = await execaCommand(
-        `stegify encode --carrier ./public/images/spaceDrone1.png --data ./public/texts/textToHide.rtf --result ./public/uploads/stegResult.png`,
-      );
-    } */
-
     function formidablePromise(request) {
       return new Promise((resolve, reject) => {
         const form = new formidable.IncomingForm();
@@ -69,40 +63,10 @@ export default async function handler(
           if (err) return reject(err);
           resolve({ fields, files });
         });
-        /* form.on('file', function (name, file) {
-          //console.log('New name ' + file.newFilename);
-          //console.log('Filepath ' + file.filepath);
-          //.log('Uploaded ' + file.originalFilename);
-          /* return execa.command(
-            `stegify encode --carrier carrierImage --data dataFile --result stegResult`,
-          ); */
-        /*if (file.mimetype === 'text/rtf') {
-            dataFileFilepath = file.filepath;
-            console.log('dataFileFilepath ' + dataFileFilepath);
-          }
-          if (file.mimetype === 'image/png') {
-            carrierImageFilepath = file.filepath;
-            console.log('carrierImageFilepath ' + carrierImageFilepath);
-          } else {
-            return;
-          }
-        }); */
       });
     }
 
     try {
-      /*let data = '';
-      request.on('data', (chunk) => {
-        try {
-          // console.log("To JSON : ",chunk.toJSON())
-          // console.log("To String : ",chunk.toString())
-          // console.log(chunk.isEncoding())
-          data += chunk;
-        } catch (e) {
-          //console.log('Data : ', e);
-        }
-        //console.log(data);
-      }); */
       const form = await formidablePromise(request);
       const carrierImageFilepath = form.files.myImage.filepath;
       const dataFileFilepath = form.files.myText.filepath;
@@ -114,15 +78,21 @@ export default async function handler(
         dataFileFilepath,
         stegResultFilepath,
       );
-      console.log(form, '...Form');
-      /* request.on('end', () => {
-        //console.log('No more data');
-        //console.log('\nSerialize : ', serialize(data));
-        //console.log('\nData string : ', data.toString());
-        // response.status(200).json({ data: null, error: 'Success' });
-      }); */
+      response.setHeader(
+        'content-disposition',
+        'attachment; filename=' + fileName,
+      );
 
-      //res.status(200).json({ data: null, error: "Success1" });
+      // send request to the original file
+      request
+        .get(process.env.REMOTE_URL + stegResultFilepath) // download original image
+        .on('error', function (err) {
+          response.writeHead(404, { 'Content-Type': 'text/html' });
+          response.write('<h1>404 not found</h1>');
+          response.end();
+          return;
+        })
+        .pipe(response); // pipe converted image to HTTP response
     } catch (e) {
       console.log('Error message : ', e);
       response.status(400).json({ data: null, error: 'Invalid Method' });

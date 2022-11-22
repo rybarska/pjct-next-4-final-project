@@ -1,6 +1,18 @@
+import { css } from '@emotion/react';
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import { getUserBySessionToken, User } from '../database/users';
+
+const imageDisplayStyles = css`
+  display: flex;
+  justify-content: center;
+  border-radius: 50%;
+`;
+const imageStyles = css`
+  border-radius: 3%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+`;
 
 type Props = {
   user?: User;
