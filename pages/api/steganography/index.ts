@@ -70,8 +70,7 @@ export default async function handler(
       const form = await formidablePromise(request);
       const carrierImageFilepath = form.files.myImage.filepath;
       const dataFileFilepath = form.files.myText.filepath;
-      const carrierImageOriginalFilename = form.files.myImage.originalFilename;
-      const stegResultFilepath = `./public/uploads/stegResult.${carrierImageOriginalFilename}`;
+      const stegResultFilepath = './public/uploads/stegResult.png';
       console.log('dataFileFilepath ' + dataFileFilepath);
       console.log('carrierImageFilepath ' + carrierImageFilepath);
       const stegImage = await encodeStegImage(
