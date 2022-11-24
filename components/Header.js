@@ -72,10 +72,11 @@ export default function Header(props) {
         <nav css={navStyles}>
           <div css={navStyles}>
             <Link href="/">Home</Link>
-            <Link href="/about">About</Link>
             {/* <Link href="/photos">Photos</Link> */}
             <Link href="/private-profile">Profile</Link>
+            <Link href="/photos">Photos</Link>
             <Link href="/steganography">Steganography</Link>
+            <Link href="/incidents">SDIRS-Incidents</Link>
           </div>
           {props.user && props.user.username}
           {props.user ? (

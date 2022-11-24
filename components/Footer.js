@@ -5,6 +5,8 @@ const footerStyles = css`
   padding: 15px 20px;
   border-top: 2px solid #ddd;
   background-color: #f2f5fc;
+  font-family: 'Syne Mono';
+  font-size: 18px;
 `;
 
 export default function Footer() {
@@ -12,12 +14,12 @@ export default function Footer() {
     <footer css={footerStyles}>
       <a>
         <Image
-          src={`/images/favicon2.ico`}
+          src={`/images/logo.png`}
           alt="drone flying in outer space"
-          width="20"
-          height="20"
+          width="26"
+          height="26"
         />
-        &nbsp;Space Drone Incident Reporting System
+        &nbsp;SDIRS | Space Drone Incident Reporting System
       </a>
     </footer>
   );

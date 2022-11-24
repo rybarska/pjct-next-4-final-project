@@ -78,21 +78,6 @@ export default async function handler(
         dataFileFilepath,
         stegResultFilepath,
       );
-      response.setHeader(
-        'content-disposition',
-        'attachment; filename=' + fileName,
-      );
-
-      // send request to the original file
-      request
-        .get(process.env.REMOTE_URL + stegResultFilepath) // download original image
-        .on('error', function (err) {
-          response.writeHead(404, { 'Content-Type': 'text/html' });
-          response.write('<h1>404 not found</h1>');
-          response.end();
-          return;
-        })
-        .pipe(response); // pipe converted image to HTTP response
     } catch (e) {
       console.log('Error message : ', e);
       response.status(400).json({ data: null, error: 'Invalid Method' });

@@ -2,31 +2,52 @@ import { css } from '@emotion/react';
 import Head from 'next/head';
 import Image from 'next/image';
 
+const textBoxStyles = css`
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 15px;
+  width: 700px;
+  text-align: center;
+`;
+
 const boxStyles = css`
   display: block;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 50px;
-  margin-bottom: 50px;
-  border-radius: 10px;
+  border-radius: 15px;
+  width: 700px;
   text-align: center;
+  border: 1px solid #ccc;
+  background: rgb(0, 0, 0);
+  background: rgb(230, 227, 240);
+  background: rgb(230, 227, 240);
+  background: linear-gradient(
+    0deg,
+    rgba(230, 227, 240, 0.9910481770833334) 0%,
+    rgba(78, 71, 93, 1) 0%,
+    rgba(2, 1, 5, 1) 100%
+  );
+  color: white;
+  font-family: '-apple-system, BlinkMacSystemFont, ' Segoe UI
+    ', Roboto, Oxygen,
+    Ubuntu, Cantarell, ' Open Sans ', ' Helvetica Neue
+    ', sans-serif';
   padding: 20px;
-  color: black;
-  font-weight: bold;
-  font-size: 22px;
-  box-shadow: box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
--webkit-box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
--moz-box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
-  box-sizing: border-box;
-  width: 1350px;
-  border: solid #7c729a 1px;
 `;
 
+const h2Styles = css`
+  font-family: Arial, Helvetica, sans-serif;
+`;
+
+const imageDisplayStyles = css`
+  display: flex;
+  justify-content: center;
+`;
 const imageStyles = css`
-  margin-right: 12px;
-  margin-left: 12px;
-  margin-bottom: 10px;
-  margin-top: 10px;
+  border-radius: 3%;
+  margin-top: 20px;
+  margin-bottom: 20px;
 `;
 
 export default function Home() {
@@ -39,120 +60,27 @@ export default function Home() {
       </Head>
 
       <div>Home</div>
-      <a css={boxStyles}>
-        <Image
-          css={imageStyles}
-          src={`/images/spaceDrone1.png`}
-          alt="drone flying in outer space"
-          width="300"
-          height="300"
-        />
-        <Image
-          css={imageStyles}
-          src={`/images/spaceDrone2.png`}
-          alt="drone flying in outer space"
-          width="300"
-          height="300"
-        />
-        <Image
-          css={imageStyles}
-          src={`/images/spaceDrone3.png`}
-          alt="drone flying in outer space"
-          width="300"
-          height="300"
-        />
-        <Image
-          css={imageStyles}
-          src={`/images/spaceDrone4.png`}
-          alt="drone flying in outer space"
-          width="300"
-          height="300"
-        />
-        <Image
-          css={imageStyles}
-          src={`/images/spaceDrone5.png`}
-          alt="drone flying in outer space"
-          width="300"
-          height="300"
-        />
-        <Image
-          css={imageStyles}
-          src={`/images/spaceDrone6.png`}
-          alt="drone flying in outer space"
-          width="300"
-          height="300"
-        />
-        <Image
-          css={imageStyles}
-          src={`/images/spaceDrone7.png`}
-          alt="drone flying in outer space"
-          width="300"
-          height="300"
-        />
-        <Image
-          css={imageStyles}
-          src={`/images/spaceDrone8.png`}
-          alt="drone flying in outer space"
-          width="300"
-          height="300"
-        />
-        <Image
-          css={imageStyles}
-          src={`/images/spaceDrone9.png`}
-          alt="drone flying in outer space"
-          width="300"
-          height="300"
-        />
-        <Image
-          css={imageStyles}
-          src={`/images/spaceDrone10.png`}
-          alt="drone flying in outer space"
-          width="300"
-          height="300"
-        />
-        <Image
-          css={imageStyles}
-          src={`/images/spaceDrone11.png`}
-          alt="drone flying in outer space"
-          width="300"
-          height="300"
-        />
-        <Image
-          css={imageStyles}
-          src={`/images/spaceDrone12.png`}
-          alt="drone flying in outer space"
-          width="300"
-          height="300"
-        />
-        <Image
-          css={imageStyles}
-          src={`/images/spaceDrone13.png`}
-          alt="drone flying in outer space"
-          width="300"
-          height="300"
-        />
-        <Image
-          css={imageStyles}
-          src={`/images/spaceDrone14.png`}
-          alt="drone flying in outer space"
-          width="300"
-          height="300"
-        />
-        <Image
-          css={imageStyles}
-          src={`/images/spaceDrone15.png`}
-          alt="drone flying in outer space"
-          width="300"
-          height="300"
-        />
-        <Image
-          css={imageStyles}
-          src={`/images/spaceDrone16.png`}
-          alt="drone flying in outer space"
-          width="300"
-          height="300"
-        />
-      </a>
+      <section css={textBoxStyles}>
+        <h2 css={h2Styles}>
+          The Space Drone Incident Reporting System collects, classifies, and
+          analyses information on security incidents involving drones operating
+          in the outer space. Reporting and access to information is restricted
+          to registered users.
+        </h2>
+        <div css={boxStyles}>
+          <div css={imageDisplayStyles}>
+            <a>
+              <Image
+                css={imageStyles}
+                src={`/images/computerLabBW.png`}
+                alt="computer screens with drones flying in space"
+                width="400"
+                height="400"
+              />
+            </a>
+          </div>
+        </div>
+      </section>
     </>
   );
 }

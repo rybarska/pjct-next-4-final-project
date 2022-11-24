@@ -32,7 +32,7 @@ background: linear-gradient(55deg, rgba(230,227,240,0.9910481770833334) 0%, rgba
 -webkit-box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
 -moz-box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
   box-sizing: border-box;
-  width: 45%px;
+  width: 47%;
   border: solid #7c729a 2px;
 `;
 
@@ -112,7 +112,7 @@ export default function Steganography(props: Props) {
     }
   };
 
-  const uploadToServer = async () => {
+  const Encode = async () => {
     const formData = new FormData();
     formData.append('myText', dataFile);
     formData.append('myImage', carrierImage);
@@ -149,7 +149,7 @@ export default function Steganography(props: Props) {
             console.log(event);
             event.preventDefault();
             console.log(dataFile);
-            uploadToServer(event);
+            Encode(event);
           }}
         >
           <h2>Select text file to hide</h2>
@@ -197,6 +197,15 @@ export default function Steganography(props: Props) {
               Encode
             </button>
           </div>
+          {/* <a>
+            <Image
+              // css={imageStyles}
+              src={`/uploads/stegResult.png`}
+              alt="steganography image with encoded text file"
+              width="400"
+              height="400"
+            />
+            </a> */}
         </form>
         <form
           css={formStyles}
@@ -220,11 +229,11 @@ export default function Steganography(props: Props) {
               onChange={(event) => {
                 event.preventDefault();
                 setStegImage(event.currentTarget.files[0]);
-                uploadStegImageToClient(event);
+                // uploadStegImageToClient(event);
               }}
             />
           </label>
-          <img src={createObjectURL} />
+          {/* <img src={./public/images/stegResult.png} /> */}
           <br></br>
           <br></br>
           <div>

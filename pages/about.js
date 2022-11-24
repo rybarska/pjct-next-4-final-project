@@ -3,7 +3,12 @@ import Head from 'next/head';
 import Image from 'next/image';
 
 const boxStyles = css`
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   border-radius: 15px;
+  width: 800px;
+  text-align: center;
   border: 1px solid #ccc;
   background: rgb(0, 0, 0);
   background: rgb(230, 227, 240);
@@ -20,12 +25,6 @@ const boxStyles = css`
     Ubuntu, Cantarell, ' Open Sans ', ' Helvetica Neue
     ', sans-serif';
   padding: 20px;
-  h2 {
-    margin-top: 0;
-  }
-  & + & {
-    margin-top: 25px;
-  }
 `;
 
 const h2Styles = css`
@@ -35,7 +34,6 @@ const h2Styles = css`
 const imageDisplayStyles = css`
   display: flex;
   justify-content: center;
-  border-radius: 50%;
 `;
 const imageStyles = css`
   border-radius: 3%;

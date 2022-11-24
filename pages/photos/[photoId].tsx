@@ -1,35 +1,70 @@
 import { css } from '@emotion/react';
+import * as http from 'http';
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
 import { getPhotoById, Photo } from '../../database/photos';
 import { parseIntFromContextQuery } from '../../utils/contextQuery';
-import { getParsedCookie, setStringifiedCookie } from '../../utils/cookies';
 
-const photoStyles = css`
+/* const photoStyles = css`
   border-radius: 15px;
   border: 1px solid #ccc;
   padding: 20px;
-  h2 {
-    margin-top: 0;
-  }
-  & + & {
-    margin-top: 25px;
-  }
+  background-color: pink;
+  min-width: 0;
+  min-height: 0;
+  background: rgb(230,227,240);
+background: linear-gradient(55deg, rgba(230,227,240,0.9910481770833334) 0%, rgba(78,71,93,1) 0%, rgba(2,1,5,1) 100%);
+  box-shadow: box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
+-webkit-box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
+-moz-box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
+  box-sizing: border-box;
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+`; */
+
+const photoStyles = css`
+  display: block;
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 15px;
+  width: 800px;
+  text-align: center;
+  border: 1px solid #ccc;
+  background: rgb(0, 0, 0);
+  background: rgb(230, 227, 240);
+  background: rgb(230, 227, 240);
+  background: linear-gradient(
+    0deg,
+    rgba(230, 227, 240, 0.9910481770833334) 0%,
+    rgba(78, 71, 93, 1) 0%,
+    rgba(2, 1, 5, 1) 100%
+  );
+  color: white;
+  font-family: '-apple-system, BlinkMacSystemFont, ' Segoe UI
+    ', Roboto, Oxygen,
+    Ubuntu, Cantarell, ' Open Sans ', ' Helvetica Neue
+    ', sans-serif';
+  padding: 50px;
 `;
 
-/* const addToCartStyles = css`
-  background-color: #e4c0fc;
+const buttonStyles = css`
+  background: #fa9d00;
+  color: black;
+  width: 200px;
+  height: 50px;
   border-radius: 6px;
-  margin-top: 20px;
-  padding: 10px;
-  font-weight: bold;
-  > a + a {
-    margin-left: 13px;
-  }
-`; */
+  font-size: 26px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      box-shadow: box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
+-webkit-box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
+-moz-box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
+text-align: center;
+`;
 
 type Props =
   | {
@@ -38,6 +73,22 @@ type Props =
   | {
       error: string;
     };
+
+function Download() {
+  const file = fs.createWriteStream('file.jpg');
+  const request = http.get(
+    'http://i3.ytimg.com/vi/J---aiyznGQ/mqdefault.jpg',
+    function (response) {
+      response.pipe(file);
+
+      // after download completed close filestream
+      file.on('finish', () => {
+        file.close();
+        console.log('Download Completed');
+      });
+    },
+  );
+}
 
 export default function SinglePhoto(props: Props) {
   if ('error' in props) {
@@ -60,13 +111,17 @@ export default function SinglePhoto(props: Props) {
         <title>{props.photo.title}</title>
         <meta name="description" content={`${props.photo.title}`} />
       </Head>
-      <h1>{props.photo.title}</h1>
+
       <Image
-        src={`/${props.photo.id}-${props.photo.title.toLowerCase()}.png`}
+        src={`/images/${props.photo.title}${props.photo.id}.png`}
         alt=""
-        width="400"
-        height="400"
+        width="500"
+        height="500"
       />
+      <br></br>
+      <br></br>
+      <br></br>
+      <button css={buttonStyles}>Download</button>
     </div>
   );
 }
