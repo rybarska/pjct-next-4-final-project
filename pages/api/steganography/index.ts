@@ -44,13 +44,13 @@ export default async function handler(
       return;
     }
 
-    async function encodeStegImage(carrier, data, result) {
+    async function encodeStegImage(carrier: any, data: any, result: any) {
       const { stdout } = await execaCommand(
         `stegify encode --carrier ${carrier} --data ${data} --result ${result}`,
       );
     }
 
-    async function decodeStegImage(carrier, result) {
+    async function decodeStegImage(carrier: any, result: any) {
       const { stdout } = await execaCommand(
         `stegify decode --carrier ${carrier} --result ${result}`,
       );
