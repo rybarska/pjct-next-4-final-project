@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { load } from 'cheerio';
 import * as http from 'http';
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 import Head from 'next/head';
@@ -74,22 +75,6 @@ type Props =
       error: string;
     };
 
-function Download() {
-  const file = fs.createWriteStream('file.jpg');
-  const request = http.get(
-    'http://i3.ytimg.com/vi/J---aiyznGQ/mqdefault.jpg',
-    function (response) {
-      response.pipe(file);
-
-      // after download completed close filestream
-      file.on('finish', () => {
-        file.close();
-        console.log('Download Completed');
-      });
-    },
-  );
-}
-
 export default function SinglePhoto(props: Props) {
   if ('error' in props) {
     return (
@@ -102,6 +87,34 @@ export default function SinglePhoto(props: Props) {
         <h1>{props.error}</h1>
         Sorry, try the <Link href="/photos">photos page</Link>
       </div>
+    );
+  }
+
+  /* async function downloadImage( url, path) => {
+      const linkResponse = await fetch(
+        `/photos/{photo.id}`,
+      );
+      const body = await linkResponse.text();
+      const imageResponse = await fetch( url);
+      const arraybuffer = await imageResponse.arrayBuffer();
+      const buffer = Buffer.from(arraybuffer);
+      fs.writeFile(path, buffer, () => {});
+      const $ = load(body);
+    }; */
+
+  async function downloadImage() {
+    const file = fs.createWriteStream('file.png');
+    const request = http.get(
+      'http://i3.ytimg.com/vi/J---aiyznGQ/mqdefault.png',
+      function (response) {
+        response.pipe(file);
+
+        // after download completed close filestream
+        file.on('finish', () => {
+          file.close();
+          console.log('Download Completed');
+        });
+      },
     );
   }
 
@@ -121,7 +134,14 @@ export default function SinglePhoto(props: Props) {
       <br></br>
       <br></br>
       <br></br>
-      <button css={buttonStyles}>Download</button>
+      <button
+        css={buttonStyles}
+        onClick={async () => {
+          await downloadImage();
+        }}
+      >
+        Download
+      </button>
     </div>
   );
 }

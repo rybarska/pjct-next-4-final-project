@@ -44,14 +44,14 @@ export default function SingleIncident(props: Props) {
     <div css={incidentStyles}>
       <Head>
         <title>
-          {props.incident.category}, the {props.incident.type}
+          {props.incident.category}, the {props.incident.coordinates}
         </title>
         <meta
           name="description"
-          content={`${props.incident.category} is a ${props.incident.type} with a ${props.incident.accessory}`}
+          content={`${props.incident.category} is a ${props.incident.coordinates} with a ${props.incident.day}`}
         />
       </Head>
-      <h2>{props.incident.firstName}</h2>
+      <h2>{props.incident.category}</h2>
       <Image
         src={`/${
           props.incident.id

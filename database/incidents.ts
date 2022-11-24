@@ -39,6 +39,17 @@ export async function getIncidents() {
   return incidents;
 }
 
+export async function getIncidentsWithLimit(limit: number) {
+  const incidents = await sql<Incident[]>`
+    SELECT
+      *
+    FROM
+    incidents
+    LIMIT ${limit}
+  `;
+  return incidents;
+}
+
 // Get a single incident by id
 export async function getIncidentById(id: number) {
   const [incident] = await sql<Incident[]>`
