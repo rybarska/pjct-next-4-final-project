@@ -24,7 +24,7 @@ background: linear-gradient(55deg, rgba(230,227,240,0.9910481770833334) 0%, rgba
 -webkit-box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
 -moz-box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
   box-sizing: border-box;
-  width: 500px;
+  width: 600px;
   border: solid #7c729a 2px;
 `;
 
@@ -43,15 +43,79 @@ const inputStyles = css`
 const buttonStyles = css`
   background: #fa9d00;
   color: black;
-  width: 200px;
+  width: 220px;
   height: 50px;
   border-radius: 6px;
   font-size: 26px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      box-shadow: box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
+`;
+
+const outputStyles = css`
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  border-radius: 10px;
+  text-align: center;
+  padding: 20px;
+  color: white;
+  font-weight: bold;
+  font-size: 22px;
+  background: rgb(230,227,240);
+background: linear-gradient(55deg, rgba(230,227,240,0.9910481770833334) 0%, rgba(78,71,93,1) 0%, rgba(2,1,5,1) 100%);
+  box-shadow: box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
 -webkit-box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
 -moz-box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
+  box-sizing: border-box;
+  width: 1200px;
+  border: solid #7c729a 2px;
+`;
+
+const dbInputStyles = css`
+  width: 25%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  font-size: 22px;
+  color: #180d24;
+  border-radius: 5px;
+  background-color: rgba(241, 245, 255, 1);
+  border: solid #7c729a 2px;
+`;
+
+const xButtonStyles = css`
+  background: #fa0000;
+  color: black;
+  width: 50px;
+  height: 50px;
+  border-radius: 6px;
+  font-size: 22px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+`;
+
+const editButtonStyles = css`
+  background: #00d4fa;
+  color: black;
+  width: 100px;
+  height: 50px;
+  border-radius: 6px;
+  font-size: 22px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+`;
+
+const saveButtonStyles = css`
+  background: #00fa0c;
+  color: black;
+  width: 100px;
+  height: 50px;
+  border-radius: 6px;
+  font-size: 26px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 `;
 
 type Props =
@@ -159,8 +223,9 @@ export default function IncidentsAdmin(props: Props) {
   return (
     <>
       <Head>
-        <title>Frontend api lecture</title>
-        <meta name="description" content="Content of the api lecture" />
+        <title>Incidents</title>
+        <meta name="description" content="Overview of the incidents" />
+        <link rel="icon" href="/images/favicon2.ico" />
       </Head>
       <div css={formStyles}>
         <h1>Incidents List</h1>
@@ -191,7 +256,7 @@ export default function IncidentsAdmin(props: Props) {
         <br />
         <br></br>
         <label>
-          Day
+          Date
           <br />
           <input
             css={inputStyles}
@@ -215,66 +280,82 @@ export default function IncidentsAdmin(props: Props) {
 
       <hr />
 
-      {incidents.map((incident) => {
-        const isIncidentOnEdit = onEditId === incident.id;
+      <div css={outputStyles}>
+        {incidents.map((incident) => {
+          const isIncidentOnEdit = onEditId === incident.id;
 
-        return (
-          <Fragment key={incident.id}>
-            <input
-              value={isIncidentOnEdit ? categoryOnEditInput : incident.category}
-              disabled={!isIncidentOnEdit}
-              onChange={(event) => {
-                setCategoryOnEditInput(event.currentTarget.value);
-              }}
-            />
-            <input
-              value={
-                isIncidentOnEdit ? coordinatesOnEditInput : incident.coordinates
-              }
-              disabled={!isIncidentOnEdit}
-              onChange={(event) => {
-                setCoordinatesOnEditInput(event.currentTarget.value);
-              }}
-            />
-            <input
-              value={isIncidentOnEdit ? dayOnEditInput : incident.day || ''}
-              disabled={!isIncidentOnEdit}
-              onChange={(event) => {
-                setDayOnEditInput(event.currentTarget.value);
-              }}
-            />
+          return (
+            <Fragment key={incident.id}>
+              <input
+                css={dbInputStyles}
+                value={
+                  isIncidentOnEdit ? categoryOnEditInput : incident.category
+                }
+                disabled={!isIncidentOnEdit}
+                onChange={(event) => {
+                  setCategoryOnEditInput(event.currentTarget.value);
+                }}
+              />
+              <input
+                css={dbInputStyles}
+                value={
+                  isIncidentOnEdit
+                    ? coordinatesOnEditInput
+                    : incident.coordinates
+                }
+                disabled={!isIncidentOnEdit}
+                onChange={(event) => {
+                  setCoordinatesOnEditInput(event.currentTarget.value);
+                }}
+              />
+              <input
+                css={dbInputStyles}
+                value={isIncidentOnEdit ? dayOnEditInput : incident.day || ''}
+                disabled={!isIncidentOnEdit}
+                onChange={(event) => {
+                  setDayOnEditInput(event.currentTarget.value);
+                }}
+              />
 
-            <button onClick={() => deleteIncidentFromApiById(incident.id)}>
-              X
-            </button>
-            {!isIncidentOnEdit ? (
               <button
-                onClick={() => {
-                  setOnEditId(incident.id);
-                  setCategoryOnEditInput(incident.category);
-                  setCoordinatesOnEditInput(incident.coordinates || '');
-                  setDayOnEditInput(incident.day);
-                }}
+                css={xButtonStyles}
+                onClick={() => deleteIncidentFromApiById(incident.id)}
               >
-                edit
+                X
               </button>
-            ) : (
-              <button
-                onClick={async () => {
-                  setOnEditId(undefined);
-                  await updateIncidentFromApiById(incident.id);
-                }}
-              >
-                save
-              </button>
-            )}
-            <br />
-          </Fragment>
-        );
-      })}
-      {incidents.length < 4 && (
-        <button onClick={() => getIncidentsFromApi()}>show more than 3</button>
-      )}
+              {!isIncidentOnEdit ? (
+                <button
+                  css={editButtonStyles}
+                  onClick={() => {
+                    setOnEditId(incident.id);
+                    setCategoryOnEditInput(incident.category);
+                    setCoordinatesOnEditInput(incident.coordinates || '');
+                    setDayOnEditInput(incident.day);
+                  }}
+                >
+                  edit
+                </button>
+              ) : (
+                <button
+                  css={saveButtonStyles}
+                  onClick={async () => {
+                    setOnEditId(undefined);
+                    await updateIncidentFromApiById(incident.id);
+                  }}
+                >
+                  save
+                </button>
+              )}
+              <br />
+            </Fragment>
+          );
+        })}
+        {incidents.length < 4 && (
+          <button css={buttonStyles} onClick={() => getIncidentsFromApi()}>
+            show more than 3
+          </button>
+        )}
+      </div>
     </>
   );
 }

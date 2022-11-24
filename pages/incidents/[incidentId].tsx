@@ -53,9 +53,7 @@ export default function SingleIncident(props: Props) {
       </Head>
       <h2>{props.incident.category}</h2>
       <Image
-        src={`/${
-          props.incident.id
-        }-${props.incident.category.toLowerCase()}.jpeg`}
+        src={`/images/${props.incident.id}.jpeg`}
         alt=""
         width="400"
         height="400"
