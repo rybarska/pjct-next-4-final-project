@@ -68,16 +68,11 @@ export default async function handler(
 
     try {
       const form = await formidablePromise(request);
-      const carrierImageFilepath = form.files.myImage.filepath;
-      const dataFileFilepath = form.files.myText.filepath;
-      const carrierImageOriginalFilename = form.files.myImage.originalFilename;
-      const stegResultFilepath = `./public/uploads/stegResult.${carrierImageOriginalFilename}`;
-      console.log('dataFileFilepath ' + dataFileFilepath);
-      console.log('carrierImageFilepath ' + carrierImageFilepath);
-      const stegImage = await encodeStegImage(
-        carrierImageFilepath,
-        dataFileFilepath,
-        stegResultFilepath,
+      const carrierStegImageFilepath = form.files.myStegImage.filepath;
+      const decodedTextFilepath = './public/uploads/decodedText.rtf';
+      const decodedText = await decodeStegImage(
+        carrierStegImageFilepath,
+        decodedTextFilepath,
       );
     } catch (e) {
       console.log('Error message : ', e);

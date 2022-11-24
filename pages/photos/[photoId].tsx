@@ -8,24 +8,6 @@ import Link from 'next/link';
 import { getPhotoById, Photo } from '../../database/photos';
 import { parseIntFromContextQuery } from '../../utils/contextQuery';
 
-/* const photoStyles = css`
-  border-radius: 15px;
-  border: 1px solid #ccc;
-  padding: 20px;
-  background-color: pink;
-  min-width: 0;
-  min-height: 0;
-  background: rgb(230,227,240);
-background: linear-gradient(55deg, rgba(230,227,240,0.9910481770833334) 0%, rgba(78,71,93,1) 0%, rgba(2,1,5,1) 100%);
-  box-shadow: box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
--webkit-box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
--moz-box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
-  box-sizing: border-box;
-  text-align: center;
-  margin-top: 30px;
-  margin-bottom: 30px;
-`; */
-
 const photoStyles = css`
   display: block;
   margin-top: 30px;
@@ -90,33 +72,43 @@ export default function SinglePhoto(props: Props) {
     );
   }
 
-  /* async function downloadImage( url, path) => {
-      const linkResponse = await fetch(
-        `/photos/{photo.id}`,
-      );
-      const body = await linkResponse.text();
-      const imageResponse = await fetch( url);
-      const arraybuffer = await imageResponse.arrayBuffer();
-      const buffer = Buffer.from(arraybuffer);
-      fs.writeFile(path, buffer, () => {});
-      const $ = load(body);
-    }; */
-
-  async function downloadImage() {
-    const file = fs.createWriteStream('file.png');
-    const request = http.get(
-      'http://i3.ytimg.com/vi/J---aiyznGQ/mqdefault.png',
-      function (response) {
-        response.pipe(file);
-
-        // after download completed close filestream
-        file.on('finish', () => {
-          file.close();
-          console.log('Download Completed');
+  /* const downloadImage = async () => {
+    await fetch('/photos/{photo.id}', {
+      method: 'GET',
+      headers: {},
+    })
+      .then((response) => {
+        response.arrayBuffer().then(function (buffer) {
+          const url = window.URL.createObjectURL(new Blob([buffer]));
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = 'image.png';
+          link.click();
         });
-      },
-    );
-  }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }; */
+
+  const downloadImage = async (e) => {
+    fetch(`/images/${props.photo.title}${props.photo.id}.png`, {
+      method: 'GET',
+      headers: {},
+    })
+      .then((response) => {
+        response.arrayBuffer().then(function (buffer) {
+          const url = window.URL.createObjectURL(new Blob([buffer]));
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = 'image.png';
+          link.click();
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div css={photoStyles}>

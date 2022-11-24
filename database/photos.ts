@@ -5,6 +5,28 @@ export type Photo = {
   title: string;
 };
 
+export async function getPhotoByIdAndValidSessionToken(
+  id: number,
+  token: string | undefined,
+) {
+  if (!token) return undefined;
+  // STRETCH: Update this adding a role to the users and matching it with the session token
+  const [photo] = await sql<Photo[]>`
+    SELECT
+      photos.*
+    FROM
+      photos,
+      sessions
+    WHERE
+      sessions.token = ${token}
+    AND
+      sessions.expiry_timestamp > now()
+    AND
+      photos.id = ${id}
+  `;
+  return photo;
+}
+
 // Get all photos
 export async function getPhotos() {
   const photos = await sql<Photo[]>`

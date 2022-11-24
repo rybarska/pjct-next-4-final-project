@@ -1,4 +1,6 @@
 import { css } from '@emotion/react';
+import { load } from 'cheerio';
+import * as fs from 'fs';
 import { GetServerSidePropsResult } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -112,6 +114,7 @@ export async function getServerSideProps(): Promise<
     // Anything that you write in this props object
     // will become the props that are passed to
     // the `Photos` page component above
+
     props: {
       // First prop, containing all photos
       photos: photos,

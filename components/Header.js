@@ -76,7 +76,8 @@ export default function Header(props) {
             <Link href="/photos">Photos</Link>
             <Link href="/private-profile">Profile</Link>
             <Link href="/steganography">Steganography</Link>
-            <Link href="/incidents">SDIRS-Incidents</Link>
+            <Link href="/incidents">SDIRS-manual</Link>
+            <Link href="/stegIncidents">SDIRS-steg</Link>
           </div>
           {props.user && props.user.username}
           {props.user ? (

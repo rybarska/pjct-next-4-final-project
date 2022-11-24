@@ -51,7 +51,7 @@ const inputStyles = css`
 const buttonStyles = css`
   background: #fa9d00;
   color: black;
-  width: 200px;
+  width: 300px;
   height: 50px;
   border-radius: 6px;
   font-size: 26px;
@@ -172,8 +172,8 @@ export default function Steganography(props: Props) {
   return (
     <>
       <Head>
-        <title>Steganography</title>
-        <meta name="description" content="Steganography" />
+        <title>SDIRS-steg</title>
+        <meta name="description" content="SDIRS-steg" />
         <link rel="icon" href="/images/favicon2.ico" />
       </Head>
       <div>Steganography</div>
@@ -192,25 +192,7 @@ export default function Steganography(props: Props) {
             window.location.href = '/steganography';
           }}
         >
-          <h2>Select text file to hide</h2>
-          <label for="dataFile">
-            <input
-              css={inputStyles}
-              type="file"
-              name="myText"
-              accept="text"
-              required
-              onChange={(event) => {
-                event.preventDefault();
-                setDataFile(event.currentTarget.files[0]);
-                //uploadDataFileToClient;
-              }}
-            />
-          </label>
-          <br></br>
-          <br></br>
-
-          <h2>Select carrier image</h2>
+          <h2>Report incidents</h2>
           <label for="carrierImage">
             <input
               css={inputStyles}
@@ -234,7 +216,7 @@ export default function Steganography(props: Props) {
               className="btn btn-primary"
               type="submit"
             >
-              Encode
+              Submit POST query
             </button>
           </div>
           {/* <a>
@@ -260,7 +242,7 @@ export default function Steganography(props: Props) {
             window.location.href = '/steganography';
           }}
         >
-          <h2>Select image to decode</h2>
+          <h2>Retrieve incidents</h2>
           <label for="stegImage">
             <input
               css={inputStyles}
@@ -284,7 +266,7 @@ export default function Steganography(props: Props) {
               className="btn btn-primary"
               type="submit"
             >
-              Decode
+              Submit GET query
             </button>
           </div>
         </form>
