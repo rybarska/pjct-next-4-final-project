@@ -71,6 +71,7 @@ export default function Header(props) {
       <section css={sectionStyles}>
         <nav css={navStyles}>
           <div css={navStyles}>
+            <Link href="/intro">INTRO</Link>
             <Link href="/">Home</Link>
             {/* <Link href="/photos">Photos</Link> */}
             <Link href="/photos">Photos</Link>

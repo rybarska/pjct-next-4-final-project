@@ -104,7 +104,6 @@ export default function UserProfile(props: Props) {
       <h1>Personal Information</h1>
       <h2>username: {props.user.username}</h2>
       <hr />
-      <br />
       <div>
         <form
           css={formStyles}
