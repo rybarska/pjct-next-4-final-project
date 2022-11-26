@@ -80,17 +80,17 @@ export default function Steganography(props: Props) {
       </>
     );
   }
-  const [dataFile, setDataFile] = useState(null);
+  const [dataFile, setDataFile] = useState<File | null>(null);
   console.log('dataFile', dataFile);
-  const [carrierImage, setCarrierImage] = useState(null);
+  const [carrierImage, setCarrierImage] = useState<File | null>(null);
   console.log('carrierImage', carrierImage);
-  const [stegImage, setStegImage] = useState(null);
+  const [stegImage, setStegImage] = useState<File | null>(null);
 
-  const [createObjectURL, setCreateObjectURL] = useState(null);
+  const [createObjectURL, setCreateObjectURL] = useState<string | null>(null);
   // const [errors, setErrors] = useState<{ message: string }[]>([]);
   const router = useRouter();
 
-  const uploadDataFileToClient = (event) => {
+  const uploadDataFileToClient = (event: any) => {
     if (event.target.files && event.target.files[0]) {
       const d = event.target.files[0];
 
@@ -98,14 +98,14 @@ export default function Steganography(props: Props) {
       setCreateObjectURL(URL.createObjectURL(d));
     }
   };
-  const uploadCarrierImageToClient = (event) => {
+  const uploadCarrierImageToClient = (event: any) => {
     if (event.target.files && event.target.files[0]) {
       const i = event.target.files[0];
       setCarrierImage(i);
       setCreateObjectURL(URL.createObjectURL(i));
     }
   };
-  const uploadStegImageToClient = (event) => {
+  const uploadStegImageToClient = (event: any) => {
     if (event.target.files && event.target.files[0]) {
       const s = event.target.files[0];
       setCarrierImage(s);

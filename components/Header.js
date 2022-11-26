@@ -67,7 +67,6 @@ export default function Header(props) {
           />
         </a>
         <h2>SDIRS | Space Drone Incident Reporting System</h2>
-        <br></br>
       </div>
       <section css={sectionStyles}>
         <nav css={navStyles}>

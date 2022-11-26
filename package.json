@@ -40,6 +40,7 @@
     "@types/dotenv-safe": "^8.1.2",
     "@types/eslint": "8.4.10",
     "@types/formidable": "^2.0.5",
+    "@types/http-proxy": "^1.17.9",
     "@types/js-cookie": "^3.0.2",
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
