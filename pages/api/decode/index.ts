@@ -50,7 +50,7 @@ export default async function handler(
       );
     }
 
-    function formidablePromise(request) {
+    function formidablePromise(request: NextApiRequest) {
       return new Promise((resolve, reject) => {
         const form = new formidable.IncomingForm();
         form.parse(request, (err, fields, files) => {
@@ -61,7 +61,7 @@ export default async function handler(
     }
 
     try {
-      const form = await formidablePromise(request);
+      const form: any = await formidablePromise(request);
       const carrierStegImageFilepath = form.files.myStegImage.filepath;
       const decodedTextFilepath = './public/uploads/decodedText.rtf';
       const decodedText = await decodeStegImage(

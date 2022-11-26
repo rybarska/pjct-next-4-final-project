@@ -56,7 +56,7 @@ export default async function handler(
       );
     }
 
-    function formidablePromise(request) {
+    function formidablePromise(request: NextApiRequest) {
       return new Promise((resolve, reject) => {
         const form = new formidable.IncomingForm();
         form.parse(request, (err, fields, files) => {
@@ -67,7 +67,7 @@ export default async function handler(
     }
 
     try {
-      const form = await formidablePromise(request);
+      const form: any = await formidablePromise(request);
       const carrierImageFilepath = form.files.myImage.filepath;
       const dataFileFilepath = form.files.myText.filepath;
       const stegResultFilepath = './public/uploads/stegResult.png';
