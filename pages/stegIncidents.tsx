@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { ProgressBar } from '@open-tech-world/cli-progress-bar';
 import { load } from 'cheerio';
@@ -89,7 +90,7 @@ export default function Steganography(props: Props) {
   // const [errors, setErrors] = useState<{ message: string }[]>([]);
   const router = useRouter();
 
-  const uploadDataFileToClient = (event) => {
+  const uploadDataFileToClient = (event: any) => {
     if (event.target.files && event.target.files[0]) {
       const d = event.target.files[0];
 
@@ -182,7 +183,7 @@ export default function Steganography(props: Props) {
           css={formStyles}
           action="/api/steganography"
           method="post"
-          enctype="multipart/form-data"
+          encType="multipart/form-data"
           onSubmit={(event) => {
             console.log(event);
             event.preventDefault();
@@ -233,7 +234,7 @@ export default function Steganography(props: Props) {
           css={formStyles}
           action="/api/steganography"
           method="post"
-          enctype="multipart/form-data"
+          encType="multipart/form-data"
           onSubmit={(event) => {
             console.log(event);
             event.preventDefault();

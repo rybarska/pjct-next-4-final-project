@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { load } from 'cheerio';
 import * as fs from 'fs';

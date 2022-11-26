@@ -42,7 +42,7 @@ export default async function handler(
     const imageResponse = await fetch(url);
     const arraybuffer = await imageResponse.arrayBuffer();
     const buffer = Buffer.from(arraybuffer);
-    fs.writeFile(path, buffer, () => {});
+    fs.writeFile(path, buffer);
   };
 
   const $ = load(body);
@@ -101,10 +101,8 @@ for (let i = 0; i < 10; i++) {
     const title = request.body?.title;
 
     // Check all the information to create the photo exists
-    if (!(firstName && accessory && type)) {
-      return response
-        .status(400)
-        .json({ message: 'property firstName, accessory or type missing' });
+    if (!title) {
+      return response.status(400).json({ message: 'property title missing' });
     }
 
     // TODO: add type checking to the api

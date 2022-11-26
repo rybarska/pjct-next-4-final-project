@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
@@ -109,54 +110,48 @@ export default function UserProfile(props: Props) {
           css={formStyles}
           action="/api/steganography"
           method="post"
-          enctype="multipart/form-data"
+          encType="multipart/form-data"
           onSubmit={(event) => {
             event.preventDefault();
           }}
         >
-          <label>
-            <br></br>
-            email
-            <br></br>
-            <input
-              css={inputStyles}
-              /* value={username}
+          <br></br>
+          email
+          <br></br>
+          <input
+            css={inputStyles}
+            /* value={username}
               onChange={(event) => {
                 setUsername(event.currentTarget.value.toLowerCase());
               }} */
-            />
-          </label>
+          />
           <br></br>
-          <label>
-            <br></br>
-            phone number
-            <br></br>
-            <input
-              css={inputStyles}
-              /* value={password}
+          <br></br>
+          phone number
+          <br></br>
+          <input
+            css={inputStyles}
+            /* value={password}
               onChange={(event) => {
                 setPassword(event.currentTarget.value);
               }} */
-            />
-          </label>
+          />
           <br></br>
           <br></br>
           photo
           <br></br>
-          <label for="carrierImage">
-            <input
-              css={inputStyles}
-              type="file"
-              name="myImage"
-              accept="image/png"
-              /* required
+          <input
+            css={inputStyles}
+            type="file"
+            name="myImage"
+            accept="image/png"
+            /* required
               onChange={(event) => {
                 event.preventDefault();
                 setCarrierImage(event.currentTarget.files[0]);
                 uploadCarrierImageToClient(event);
               }} */
-            />
-          </label>
+          />
           <br></br>
           <br></br>
           <br></br>
@@ -166,9 +161,6 @@ export default function UserProfile(props: Props) {
       <div>
         <form
           css={formStyles}
-          action="/api/steganography"
-          method="post"
-          enctype="multipart/form-data"
           onSubmit={(event) => {
             event.preventDefault();
           }}

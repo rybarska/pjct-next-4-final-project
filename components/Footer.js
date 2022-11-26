@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import Image from 'next/image';
 
@@ -14,7 +15,7 @@ export default function Footer() {
     <footer css={footerStyles}>
       <a>
         <Image
-          src={`/images/logo.png`}
+          src="/images/logo.png"
           alt="drone flying in outer space"
           width="26"
           height="26"

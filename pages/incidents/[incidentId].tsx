@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 import Head from 'next/head';
@@ -5,18 +6,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { getIncidentById, Incident } from '../../database/incidents';
 import { parseIntFromContextQuery } from '../../utils/contextQuery';
-
-const incidentStyles = css`
-  border-radius: 15px;
-  border: 1px solid #ccc;
-  padding: 20px;
-  h2 {
-    margin-top: 0;
-  }
-  & + & {
-    margin-top: 25px;
-  }
-`;
 
 type Props =
   | {
@@ -41,7 +30,7 @@ export default function SingleIncident(props: Props) {
   }
 
   return (
-    <div css={incidentStyles}>
+    <div>
       <Head>
         <title>
           {props.incident.category}, the {props.incident.coordinates}

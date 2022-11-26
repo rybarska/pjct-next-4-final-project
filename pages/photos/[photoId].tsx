@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { load } from 'cheerio';
 import * as http from 'http';
@@ -91,7 +92,7 @@ export default function SinglePhoto(props: Props) {
       });
   }; */
 
-  const downloadImage = async (e) => {
+  const downloadImage = async () => {
     fetch(`/images/${props.photo.title}${props.photo.id}.png`, {
       method: 'GET',
       headers: {},

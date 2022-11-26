@@ -12,10 +12,8 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@open-tech-world/cli-progress-bar": "^2.0.2",
-    "add": "^2.0.6",
     "bcrypt": "^5.1.0",
     "cheerio": "^1.0.0-rc.12",
-    "cli-progress": "^3.11.2",
     "cookie": "^0.5.0",
     "csrf": "^3.1.0",
     "dotenv-cli": "^6.0.0",
@@ -23,17 +21,14 @@
     "execa": "^6.1.0",
     "form-data": "^4.0.0",
     "formidable": "^2.0.1",
-    "formidable-serverless": "^1.1.1",
+    "http-proxy": "^1.18.1",
     "js-cookie": "^3.0.1",
     "ley": "^0.8.1",
     "next": "13.0.0",
-    "next-http-proxy-middleware": "^1.2.5",
     "postgres": "^3.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-navbar-dropdown": "^1.4.3",
-    "sharp": "^0.31.1",
-    "yarn": "^1.22.19"
+    "sharp": "^0.31.1"
   },
   "devDependencies": {
     "@babel/eslint-parser": "7.19.1",

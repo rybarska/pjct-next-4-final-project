@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { ProgressBar } from '@open-tech-world/cli-progress-bar';
 import { load } from 'cheerio';
@@ -132,7 +133,7 @@ export default function Steganography(props: Props) {
   };
 
   const downloadEncodedImage = async (e) => {
-    fetch(`/uploads/stegResult.png`, {
+    await fetch(`/uploads/stegResult.png`, {
       method: 'GET',
       headers: {},
     })
@@ -151,7 +152,7 @@ export default function Steganography(props: Props) {
   };
 
   const downloadDecodedText = async (e) => {
-    fetch(`/uploads/decodedText.rtf`, {
+    await fetch(`/uploads/decodedText.rtf`, {
       method: 'GET',
       headers: {},
     })
@@ -182,7 +183,7 @@ export default function Steganography(props: Props) {
           css={formStyles}
           action="/api/steganography"
           method="post"
-          enctype="multipart/form-data"
+          encType="multipart/form-data"
           onSubmit={(event) => {
             console.log(event);
             event.preventDefault();
@@ -251,7 +252,7 @@ export default function Steganography(props: Props) {
           css={formStyles}
           action="/api/steganography"
           method="post"
-          enctype="multipart/form-data"
+          encType="multipart/form-data"
           onSubmit={(event) => {
             console.log(event);
             event.preventDefault();

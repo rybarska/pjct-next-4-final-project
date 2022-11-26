@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -59,7 +60,7 @@ export default function Header(props) {
       <div css={upMostElementStyles}>
         <a css={logoStyles}>
           <Image
-            src={`/images/logo.png`}
+            src="/images/logo.png"
             alt="logo with image of a drone in space"
             width="100"
             height="100"
@@ -73,7 +74,6 @@ export default function Header(props) {
           <div css={navStyles}>
             <Link href="/intro">INTRO</Link>
             <Link href="/">Home</Link>
-            {/* <Link href="/photos">Photos</Link> */}
             <Link href="/photos">Photos</Link>
             <Link href="/private-profile">Profile</Link>
             <Link href="/steganography">Steganography</Link>
