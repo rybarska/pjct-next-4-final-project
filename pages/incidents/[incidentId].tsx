@@ -22,6 +22,7 @@ export default function SingleIncident(props: Props) {
         <Head>
           <title>Incident not found</title>
           <meta name="description" content="Incident not found" />
+          <link rel="icon" href="/images/favicon3.ico" />
         </Head>
         <h1>{props.error}</h1>
         Sorry, try the <Link href="/incidents">Incidents page</Link>
@@ -39,6 +40,7 @@ export default function SingleIncident(props: Props) {
           name="description"
           content={`${props.incident.category} is a ${props.incident.coordinates} with a ${props.incident.day}`}
         />
+        <link rel="icon" href="/images/favicon3.ico" />
       </Head>
       <h2>{props.incident.category}</h2>
       <Image

@@ -71,7 +71,7 @@ export default function Photos(props: Props) {
       <Head>
         <title>Photos</title>
         <meta name="description" content="Overview of the images" />
-        <link rel="icon" href="/images/favicon2.ico" />
+        <link rel="icon" href="/images/favicon3.ico" />
       </Head>
 
       <h1 css={h1Styles}>Photos</h1>

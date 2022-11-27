@@ -226,7 +226,7 @@ export default function IncidentsAdmin(props: Props) {
       <Head>
         <title>Incidents</title>
         <meta name="description" content="Overview of the incidents" />
-        <link rel="icon" href="/images/favicon2.ico" />
+        <link rel="icon" href="/images/favicon3.ico" />
       </Head>
       <div css={formStyles}>
         <h1>Incidents List</h1>

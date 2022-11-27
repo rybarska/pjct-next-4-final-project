@@ -99,7 +99,7 @@ export default function UserProfile(props: Props) {
       <Head>
         <title>Personal Information</title>
         <meta name="description" content="Biography of the person" />
-        <link rel="icon" href="/images/favicon2.ico" />
+        <link rel="icon" href="/images/favicon3.ico" />
       </Head>
       <h1>Personal Information</h1>
       <h2>username: {props.user.username}</h2>

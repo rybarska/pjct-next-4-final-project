@@ -181,7 +181,7 @@ export default function Steganography(props: Props) {
       <Head>
         <title>Steganography</title>
         <meta name="description" content="Steganography" />
-        <link rel="icon" href="/images/favicon2.ico" />
+        <link rel="icon" href="/images/favicon3.ico" />
       </Head>
       <div>Steganography</div>
       <div css={formsStyles}>
