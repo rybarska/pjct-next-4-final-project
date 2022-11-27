@@ -7,7 +7,7 @@ import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { getUserBySessionToken, User } from '../database/users';
 
 const formsStyles = css`
@@ -27,11 +27,16 @@ const formStyles = css`
   color: white;
   font-weight: bold;
   font-size: 22px;
-  background: rgb(230,227,240);
-background: linear-gradient(55deg, rgba(230,227,240,0.9910481770833334) 0%, rgba(78,71,93,1) 0%, rgba(2,1,5,1) 100%);
-  box-shadow: box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
--webkit-box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
--moz-box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
+  background: rgb(230, 227, 240);
+  background: linear-gradient(
+    55deg,
+    rgba(230, 227, 240, 0.9910481770833334) 0%,
+    rgba(78, 71, 93, 1) 0%,
+    rgba(2, 1, 5, 1) 100%
+  );
+  box-shadow: 15px 17px 22px -14px rgba(0, 0, 0, 0.63);
+  -webkit-box-shadow: 15px 17px 22px -14px rgba(0, 0, 0, 0.63);
+  -moz-box-shadow: 15px 17px 22px -14px rgba(0, 0, 0, 0.63);
   box-sizing: border-box;
   width: 47%;
   border: solid #7c729a 2px;
@@ -58,9 +63,23 @@ const buttonStyles = css`
   font-size: 26px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      box-shadow: box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
--webkit-box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
--moz-box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
+  box-shadow: 15px 17px 22px -14px rgba(0, 0, 0, 0.63);
+  -webkit-box-shadow: 15px 17px 22px -14px rgba(0, 0, 0, 0.63);
+  -moz-box-shadow: 15px 17px 22px -14px rgba(0, 0, 0, 0.63);
+`;
+
+const downloadButtonStyles = css`
+  background: rgb(235, 171, 246);
+  color: black;
+  width: 350px;
+  height: 50px;
+  border-radius: 6px;
+  font-size: 26px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  box-shadow: 15px 17px 22px -14px rgba(0, 0, 0, 0.63);
+  -webkit-box-shadow: 15px 17px 22px -14px rgba(0, 0, 0, 0.63);
+  -moz-box-shadow: 15px 17px 22px -14px rgba(0, 0, 0, 0.63);
 `;
 
 type Props = {
@@ -90,6 +109,11 @@ export default function Steganography(props: Props) {
   // const [errors, setErrors] = useState<{ message: string }[]>([]);
   const router = useRouter();
 
+  const handleClick = async (event: any) => {
+    event.preventDefault();
+    await router.push('/steganography');
+  };
+
   const uploadDataFileToClient = (event: any) => {
     if (event.target.files && event.target.files[0]) {
       const d = event.target.files[0];
@@ -113,7 +137,7 @@ export default function Steganography(props: Props) {
     }
   };
 
-  const Encode = async () => {
+  const Encode = async (event: any) => {
     const formData = new FormData();
     formData.append('myText', dataFile);
     formData.append('myImage', carrierImage);
@@ -123,7 +147,7 @@ export default function Steganography(props: Props) {
     });
   };
 
-  const Decode = async () => {
+  const Decode = async (event: any) => {
     const formData = new FormData();
     formData.append('myStegImage', stegImage);
     const response = await fetch('/api/decode', {
@@ -132,7 +156,7 @@ export default function Steganography(props: Props) {
     });
   };
 
-  const downloadEncodedImage = async (e) => {
+  const downloadEncodedImage = async (event: any) => {
     await fetch(`/uploads/stegResult.png`, {
       method: 'GET',
       headers: {},
@@ -151,7 +175,7 @@ export default function Steganography(props: Props) {
       });
   };
 
-  const downloadDecodedText = async (e) => {
+  const downloadDecodedText = async (event: any) => {
     await fetch(`/uploads/decodedText.rtf`, {
       method: 'GET',
       headers: {},
@@ -179,66 +203,65 @@ export default function Steganography(props: Props) {
       </Head>
       <div>Steganography</div>
       <div css={formsStyles}>
-        <form
-          css={formStyles}
-          action="/api/steganography"
-          method="post"
-          encType="multipart/form-data"
-          onSubmit={(event) => {
-            console.log(event);
-            event.preventDefault();
-            console.log(dataFile);
-            Encode(event);
-            downloadEncodedImage(event);
-            window.location.href = '/steganography';
-          }}
-        >
-          <h2>Select text file to hide</h2>
-          <label for="dataFile">
-            <input
-              css={inputStyles}
-              type="file"
-              name="myText"
-              accept="text"
-              required
-              onChange={(event) => {
-                event.preventDefault();
-                setDataFile(event.currentTarget.files[0]);
-                //uploadDataFileToClient;
+        <div css={formStyles}>
+          <section>
+            <form
+              action="/api/steganography"
+              method="post"
+              encType="multipart/form-data"
+              onSubmit={async (event) => {
+                await handleClick(event);
+                Encode(event);
+                window.location.href = '/steganography';
               }}
-            />
-          </label>
-          <br></br>
-          <br></br>
-
-          <h2>Select carrier image</h2>
-          <label for="carrierImage">
-            <input
-              css={inputStyles}
-              type="file"
-              name="myImage"
-              accept="image/png"
-              required
-              onChange={(event) => {
-                event.preventDefault();
-                setCarrierImage(event.currentTarget.files[0]);
-                uploadCarrierImageToClient(event);
-              }}
-            />
-          </label>
-          <img src={createObjectURL} />
-          <br></br>
-          <br></br>
-          <div>
-            <button
-              css={buttonStyles}
-              className="btn btn-primary"
-              type="submit"
             >
-              Encode
-            </button>
-          </div>
-          {/* <a>
+              <h2>Select text file to hide</h2>
+              <label for="dataFile">
+                <input
+                  css={inputStyles}
+                  type="file"
+                  name="myText"
+                  accept="text"
+                  required
+                  onChange={(event) => {
+                    event.preventDefault();
+                    setDataFile(event.currentTarget.files[0]);
+                    //uploadDataFileToClient;
+                  }}
+                />
+              </label>
+              <br></br>
+              <br></br>
+
+              <h2>Select carrier image</h2>
+              <label for="carrierImage">
+                <input
+                  css={inputStyles}
+                  type="file"
+                  name="myImage"
+                  accept="image/png"
+                  required
+                  onChange={(event) => {
+                    event.preventDefault();
+                    setCarrierImage(event.currentTarget.files[0]);
+                    uploadCarrierImageToClient(event);
+                  }}
+                />
+              </label>
+              <img src={createObjectURL} />
+              <br></br>
+              <br></br>
+              <div>
+                <button
+                  css={buttonStyles}
+                  className="btn btn-primary"
+                  type="submit"
+                >
+                  Encode
+                </button>
+              </div>
+
+              {/* <a>
             <Image
               // css={imageStyles}
               src={`/uploads/stegResult.png`}
@@ -247,48 +270,87 @@ export default function Steganography(props: Props) {
               height="400"
             />
             </a> */}
-        </form>
-        <form
-          css={formStyles}
-          action="/api/steganography"
-          method="post"
-          encType="multipart/form-data"
-          onSubmit={(event) => {
-            console.log(event);
-            event.preventDefault();
-            Decode(event);
-            downloadDecodedText(event);
-            window.location.href = '/steganography';
-          }}
-        >
-          <h2>Select image to decode</h2>
-          <label for="stegImage">
-            <input
-              css={inputStyles}
-              type="file"
-              name="myStegImage"
-              accept="image/png"
-              required
-              onChange={(event) => {
-                event.preventDefault();
-                setStegImage(event.currentTarget.files[0]);
-                // uploadStegImageToClient(event);
+            </form>
+          </section>
+          <br></br>
+          <section>
+            <form
+              onSubmit={async (event) => {
+                await handleClick(event);
+                downloadEncodedImage(event);
+                window.location.href = '/steganography';
               }}
-            />
-          </label>
-          {/* <img src={./public/images/stegResult.png} /> */}
-          <br></br>
-          <br></br>
-          <div>
-            <button
-              css={buttonStyles}
-              className="btn btn-primary"
-              type="submit"
             >
-              Decode
-            </button>
-          </div>
-        </form>
+              <button
+                css={downloadButtonStyles}
+                className="btn btn-primary"
+                type="submit"
+              >
+                Download encoded image
+              </button>
+            </form>
+          </section>
+        </div>
+        <div css={formStyles}>
+          <section>
+            <form
+              action="/api/steganography"
+              method="post"
+              encType="multipart/form-data"
+              onSubmit={async (event) => {
+                await handleClick(event);
+                Decode(event);
+                window.location.href = '/steganography';
+              }}
+            >
+              <h2>Select image to decode</h2>
+              <label for="stegImage">
+                <input
+                  css={inputStyles}
+                  type="file"
+                  name="myStegImage"
+                  accept="image/png"
+                  required
+                  onChange={(event) => {
+                    event.preventDefault();
+                    setStegImage(event.currentTarget.files[0]);
+                    // uploadStegImageToClient(event);
+                  }}
+                />
+              </label>
+              {/* <img src={./public/images/stegResult.png} /> */}
+              <br></br>
+              <br></br>
+              <div>
+                <button
+                  css={buttonStyles}
+                  className="btn btn-primary"
+                  type="submit"
+                >
+                  Decode
+                </button>
+              </div>
+            </form>
+          </section>
+          <br></br>
+          <section>
+            <form
+              onSubmit={async (event) => {
+                await handleClick(event);
+                downloadDecodedText(event);
+                window.location.href = '/steganography';
+              }}
+            >
+              <button
+                css={downloadButtonStyles}
+                className="btn btn-primary"
+                type="submit"
+              >
+                Download decoded text
+              </button>
+            </form>
+          </section>
+        </div>
       </div>
     </>
   );

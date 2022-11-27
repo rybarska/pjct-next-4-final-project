@@ -27,14 +27,19 @@ const formStyles = css`
   color: white;
   font-weight: bold;
   font-size: 22px;
-  background: rgb(230,227,240);
-background: linear-gradient(55deg, rgba(230,227,240,0.9910481770833334) 0%, rgba(78,71,93,1) 0%, rgba(2,1,5,1) 100%);
-  box-shadow: box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
--webkit-box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
--moz-box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
-  box-sizing: border-box;
+  background: rgb(230, 227, 240);
+  background: linear-gradient(
+    55deg,
+    rgba(230, 227, 240, 0.9910481770833334) 0%,
+    rgba(78, 71, 93, 1) 0%,
+    rgba(2, 1, 5, 1) 100%
+  );
   width: 500px;
+  box-sizing: border-box;
   border: solid #7c729a 2px;
+  box-shadow: 15px 17px 22px -14px rgba(0, 0, 0, 0.63);
+  -webkit-box-shadow: 15px 17px 22px -14px rgba(0, 0, 0, 0.63);
+  -moz-box-shadow: 15px 17px 22px -14px rgba(0, 0, 0, 0.63);
 `;
 
 const inputStyles = css`
@@ -58,13 +63,10 @@ const buttonStyles = css`
   font-size: 26px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      box-shadow: box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
--webkit-box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
--moz-box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
 `;
 
 const deleteButtonStyles = css`
-  background: #D0001B;
+  background: #d0001b;
   color: black;
   width: 200px;
   height: 50px;
@@ -72,9 +74,6 @@ const deleteButtonStyles = css`
   font-size: 26px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      box-shadow: box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
--webkit-box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
--moz-box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
 `;
 
 type Props = {

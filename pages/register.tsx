@@ -19,11 +19,16 @@ const formStyles = css`
   color: white;
   font-weight: bold;
   font-size: 22px;
-  background: rgb(230,227,240);
-background: linear-gradient(55deg, rgba(230,227,240,0.9910481770833334) 0%, rgba(78,71,93,1) 0%, rgba(2,1,5,1) 100%);
-  box-shadow: box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
--webkit-box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
--moz-box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
+  background: rgb(230, 227, 240);
+  background: linear-gradient(
+    55deg,
+    rgba(230, 227, 240, 0.9910481770833334) 0%,
+    rgba(78, 71, 93, 1) 0%,
+    rgba(2, 1, 5, 1) 100%
+  );
+  box-shadow: 15px 17px 22px -14px rgba(0, 0, 0, 0.63);
+  -webkit-box-shadow: 15px 17px 22px -14px rgba(0, 0, 0, 0.63);
+  -moz-box-shadow: 15px 17px 22px -14px rgba(0, 0, 0, 0.63);
   box-sizing: border-box;
   width: 500px;
   border: solid #7c729a 2px;
@@ -50,9 +55,9 @@ const buttonStyles = css`
   font-size: 26px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      box-shadow: box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
--webkit-box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
--moz-box-shadow: 15px 17px 22px -14px rgba(0,0,0,0.63);
+  box-shadow: 15px 17px 22px -14px rgba(0, 0, 0, 0.63);
+  -webkit-box-shadow: 15px 17px 22px -14px rgba(0, 0, 0, 0.63);
+  -moz-box-shadow: 15px 17px 22px -14px rgba(0, 0, 0, 0.63);
 `;
 
 type Props = {

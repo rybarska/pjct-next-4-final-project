@@ -80,94 +80,6 @@ export default function Steganography(props: Props) {
       </>
     );
   }
-  const [dataFile, setDataFile] = useState<File | null>(null);
-  console.log('dataFile', dataFile);
-  const [carrierImage, setCarrierImage] = useState<File | null>(null);
-  console.log('carrierImage', carrierImage);
-  const [stegImage, setStegImage] = useState<File | null>(null);
-
-  const [createObjectURL, setCreateObjectURL] = useState<string | null>(null);
-  // const [errors, setErrors] = useState<{ message: string }[]>([]);
-  const router = useRouter();
-
-  const uploadDataFileToClient = (event: any) => {
-    if (event.target.files && event.target.files[0]) {
-      const d = event.target.files[0];
-      setDataFile(d);
-      setCreateObjectURL(URL.createObjectURL(d));
-    }
-  };
-  const uploadCarrierImageToClient = (event: any) => {
-    if (event.target.files && event.target.files[0]) {
-      const i = event.target.files[0];
-      setCarrierImage(i);
-      setCreateObjectURL(URL.createObjectURL(i));
-    }
-  };
-  const uploadStegImageToClient = (event: any) => {
-    if (event.target.files && event.target.files[0]) {
-      const s = event.target.files[0];
-      setCarrierImage(s);
-      setCreateObjectURL(URL.createObjectURL(s));
-    }
-  };
-
-  const Encode = async () => {
-    const formData = new FormData();
-    formData.append('myText', dataFile);
-    formData.append('myImage', carrierImage);
-    const response = await fetch('/api/steganography', {
-      method: 'POST',
-      body: formData,
-    });
-  };
-
-  const Decode = async () => {
-    const formData = new FormData();
-    formData.append('myStegImage', stegImage);
-    const response = await fetch('/api/decode', {
-      method: 'POST',
-      body: formData,
-    });
-  };
-
-  const downloadEncodedImage = async (e) => {
-    fetch(`/uploads/stegResult.png`, {
-      method: 'GET',
-      headers: {},
-    })
-      .then((response) => {
-        response.arrayBuffer().then(function (buffer) {
-          const url = window.URL.createObjectURL(new Blob([buffer]));
-          const link = document.createElement('a');
-          link.href = url;
-          link.download = 'image.png';
-          link.click();
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const downloadDecodedText = async (e) => {
-    fetch(`/uploads/decodedText.rtf`, {
-      method: 'GET',
-      headers: {},
-    })
-      .then((response) => {
-        response.arrayBuffer().then(function (buffer) {
-          const url = window.URL.createObjectURL(new Blob([buffer]));
-          const link = document.createElement('a');
-          link.href = url;
-          link.download = 'text.rtf';
-          link.click();
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
 
   return (
     <>
@@ -184,30 +96,21 @@ export default function Steganography(props: Props) {
           method="post"
           encType="multipart/form-data"
           onSubmit={(event) => {
-            console.log(event);
             event.preventDefault();
-            console.log(dataFile);
-            Encode(event);
-            downloadEncodedImage(event);
-            window.location.href = '/steganography';
           }}
         >
           <h2>Report incidents</h2>
-          <label for="carrierImage">
-            <input
-              css={inputStyles}
-              type="file"
-              name="myImage"
-              accept="image/png"
-              required
-              onChange={(event) => {
-                event.preventDefault();
-                setCarrierImage(event.currentTarget.files[0]);
-                uploadCarrierImageToClient(event);
-              }}
-            />
-          </label>
-          <img src={createObjectURL} />
+
+          <input
+            css={inputStyles}
+            type="file"
+            name="myImage"
+            accept="image/png"
+            required
+            onChange={(event) => {
+              event.preventDefault();
+            }}
+          />
           <br></br>
           <br></br>
           <div>
@@ -226,29 +129,21 @@ export default function Steganography(props: Props) {
           method="post"
           encType="multipart/form-data"
           onSubmit={(event) => {
-            console.log(event);
             event.preventDefault();
-            Decode(event);
-            downloadDecodedText(event);
-            window.location.href = '/steganography';
           }}
         >
           <h2>Retrieve incidents</h2>
-          <label for="stegImage">
-            <input
-              css={inputStyles}
-              type="file"
-              name="myStegImage"
-              accept="image/png"
-              required
-              onChange={(event) => {
-                event.preventDefault();
-                setStegImage(event.currentTarget.files[0]);
-                // uploadStegImageToClient(event);
-              }}
-            />
-          </label>
-          {/* <img src={./public/images/stegResult.png} /> */}
+
+          <input
+            css={inputStyles}
+            type="file"
+            name="myStegImage"
+            accept="image/png"
+            required
+            onChange={(event) => {
+              event.preventDefault();
+            }}
+          />
           <br></br>
           <br></br>
           <div>
