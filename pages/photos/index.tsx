@@ -84,7 +84,7 @@ export default function Photos(props: Props) {
                 <Image
                   css={imageStyles}
                   src={`/images/${photo.title}${photo.id}.png`}
-                  alt=""
+                  alt="space drone"
                   width="260"
                   height="260"
                 />

@@ -43,7 +43,7 @@ export default function SingleIncident(props: Props) {
       <h2>{props.incident.category}</h2>
       <Image
         src={`/images/${props.incident.id}.jpeg`}
-        alt=""
+        alt="space drone incident"
         width="400"
         height="400"
       />

@@ -5,7 +5,6 @@ import FormData from 'form-data';
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { getUserBySessionToken, User } from '../database/users';
 
@@ -81,18 +80,6 @@ type Props = {
 };
 
 export default function Steganography(props: Props) {
-  if (!props.user) {
-    return (
-      <>
-        <Head>
-          <title>User not found</title>
-          <meta name="description" content="User not found" />
-        </Head>
-        <h1>404 - User not found</h1>
-        Better luck next time
-      </>
-    );
-  }
   const [dataFile, setDataFile] = useState<File | null>(null);
   console.log('dataFile', dataFile);
   const [carrierImage, setCarrierImage] = useState<File | null>(null);
@@ -101,12 +88,6 @@ export default function Steganography(props: Props) {
 
   const [createObjectURL, setCreateObjectURL] = useState<string | null>(null);
   // const [errors, setErrors] = useState<{ message: string }[]>([]);
-  const router = useRouter();
-
-  /* const handleClick = async (event: any) => {
-    event.preventDefault();
-    await router.push('/steganography');
-  }; */
 
   const uploadDataFileToClient = (event: any) => {
     const d = event.target.files[0];
@@ -182,6 +163,19 @@ export default function Steganography(props: Props) {
       });
   };
 
+  if (!props.user) {
+    return (
+      <>
+        <Head>
+          <title>User not found</title>
+          <meta name="description" content="User not found" />
+        </Head>
+        <h1>404 - User not found</h1>
+        Better luck next time
+      </>
+    );
+  }
+
   return (
     <>
       <Head>
@@ -236,7 +230,7 @@ export default function Steganography(props: Props) {
                   }}
                 />
               </label>
-              <img src={createObjectURL} />
+              <img src={createObjectURL} alt="" />
               <br></br>
               <br></br>
               <div>
@@ -306,7 +300,7 @@ export default function Steganography(props: Props) {
                   }}
                 />
               </label>
-              {/* <img src={./public/images/stegResult.png} /> */}
+              {/* <img src={./public/images/stegResult.png} alt=""/> */}
               <br></br>
               <br></br>
               <div>

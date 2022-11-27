@@ -71,25 +71,6 @@ export default function SinglePhoto(props: Props) {
     );
   }
 
-  /* const downloadImage = async () => {
-    await fetch('/photos/{photo.id}', {
-      method: 'GET',
-      headers: {},
-    })
-      .then((response) => {
-        response.arrayBuffer().then(function (buffer) {
-          const url = window.URL.createObjectURL(new Blob([buffer]));
-          const link = document.createElement('a');
-          link.href = url;
-          link.download = 'image.png';
-          link.click();
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }; */
-
   const downloadImage = async () => {
     fetch(`/images/${props.photo.title}${props.photo.id}.png`, {
       method: 'GET',
@@ -118,7 +99,7 @@ export default function SinglePhoto(props: Props) {
 
       <Image
         src={`/images/${props.photo.title}${props.photo.id}.png`}
-        alt=""
+        alt="space drone"
         width="500"
         height="500"
       />
