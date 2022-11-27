@@ -1,7 +1,6 @@
+// @ts-nocheck
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { ProgressBar } from '@open-tech-world/cli-progress-bar';
-import { load } from 'cheerio';
 import FormData from 'form-data';
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
@@ -63,23 +62,18 @@ const buttonStyles = css`
   font-size: 26px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  box-shadow: 15px 17px 22px -14px rgba(0, 0, 0, 0.63);
-  -webkit-box-shadow: 15px 17px 22px -14px rgba(0, 0, 0, 0.63);
-  -moz-box-shadow: 15px 17px 22px -14px rgba(0, 0, 0, 0.63);
 `;
 
 const downloadButtonStyles = css`
-  background: rgb(235, 171, 246);
+  background: rgb(242, 196, 250);
   color: black;
   width: 350px;
   height: 50px;
+  margin-bottom: 10px;
   border-radius: 6px;
   font-size: 26px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  box-shadow: 15px 17px 22px -14px rgba(0, 0, 0, 0.63);
-  -webkit-box-shadow: 15px 17px 22px -14px rgba(0, 0, 0, 0.63);
-  -moz-box-shadow: 15px 17px 22px -14px rgba(0, 0, 0, 0.63);
 `;
 
 type Props = {
@@ -109,32 +103,26 @@ export default function Steganography(props: Props) {
   // const [errors, setErrors] = useState<{ message: string }[]>([]);
   const router = useRouter();
 
-  const handleClick = async (event: any) => {
+  /* const handleClick = async (event: any) => {
     event.preventDefault();
     await router.push('/steganography');
-  };
+  }; */
 
   const uploadDataFileToClient = (event: any) => {
-    if (event.target.files && event.target.files[0]) {
-      const d = event.target.files[0];
+    const d = event.target.files[0];
 
-      setDataFile(d);
-      setCreateObjectURL(URL.createObjectURL(d));
-    }
+    setDataFile(d);
+    setCreateObjectURL(URL.createObjectURL(d));
   };
   const uploadCarrierImageToClient = (event: any) => {
-    if (event.target.files && event.target.files[0]) {
-      const i = event.target.files[0];
-      setCarrierImage(i);
-      setCreateObjectURL(URL.createObjectURL(i));
-    }
+    const i = event.target.files[0];
+    setCarrierImage(i);
+    setCreateObjectURL(URL.createObjectURL(i));
   };
   const uploadStegImageToClient = (event: any) => {
-    if (event.target.files && event.target.files[0]) {
-      const s = event.target.files[0];
-      setCarrierImage(s);
-      setCreateObjectURL(URL.createObjectURL(s));
-    }
+    const s = event.target.files[0];
+    setCarrierImage(s);
+    setCreateObjectURL(URL.createObjectURL(s));
   };
 
   const Encode = async (event: any) => {
@@ -210,7 +198,7 @@ export default function Steganography(props: Props) {
               method="post"
               encType="multipart/form-data"
               onSubmit={async (event) => {
-                await handleClick(event);
+                event.preventDefault();
                 Encode(event);
                 window.location.href = '/steganography';
               }}
@@ -276,7 +264,7 @@ export default function Steganography(props: Props) {
           <section>
             <form
               onSubmit={async (event) => {
-                await handleClick(event);
+                event.preventDefault();
                 downloadEncodedImage(event);
                 window.location.href = '/steganography';
               }}
@@ -286,7 +274,7 @@ export default function Steganography(props: Props) {
                 className="btn btn-primary"
                 type="submit"
               >
-                Download encoded image
+                Download steg image
               </button>
             </form>
           </section>
@@ -298,7 +286,7 @@ export default function Steganography(props: Props) {
               method="post"
               encType="multipart/form-data"
               onSubmit={async (event) => {
-                await handleClick(event);
+                event.preventDefault();
                 Decode(event);
                 window.location.href = '/steganography';
               }}
@@ -336,7 +324,7 @@ export default function Steganography(props: Props) {
           <section>
             <form
               onSubmit={async (event) => {
-                await handleClick(event);
+                event.preventDefault();
                 downloadDecodedText(event);
                 window.location.href = '/steganography';
               }}

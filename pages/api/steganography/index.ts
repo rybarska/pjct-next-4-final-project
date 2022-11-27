@@ -1,16 +1,11 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
 import { execa, execaCommand } from 'execa';
-import FormData from 'form-data';
 import formidable, {
-  BufferEncoding,
   errors as formidableErrors,
   IncomingForm,
 } from 'formidable';
-import { promises as fs } from 'fs';
-import httpProxy from 'http-proxy';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { deserialize, serialize } from 'v8';
 import { getValidSessionByToken } from '../../../database/sessions';
 
 // import { validateTokenWithSecret } from '../../../utils/csrf';

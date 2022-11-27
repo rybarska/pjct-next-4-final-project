@@ -1,7 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { ProgressBar } from '@open-tech-world/cli-progress-bar';
-import { load } from 'cheerio';
 import FormData from 'form-data';
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';

@@ -1,10 +1,4 @@
-import { ProgressBar } from '@open-tech-world/cli-progress-bar';
-import { load } from 'cheerio';
-import { execa, execaCommand } from 'execa';
-import { promises as fs } from 'fs';
-import httpProxy from 'http-proxy';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { deserialize, serialize } from 'v8';
 import { createPhoto, getPhotos } from '../../../database/photos';
 import { getValidSessionByToken } from '../../../database/sessions';
 import { validateTokenWithSecret } from '../../../utils/csrf';

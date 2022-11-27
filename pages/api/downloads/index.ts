@@ -1,12 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
 import { ProgressBar } from '@open-tech-world/cli-progress-bar';
-import { load } from 'cheerio';
-import { execa, execaCommand } from 'execa';
 import { promises as fs } from 'fs';
-import httpProxy from 'http-proxy';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { deserialize, serialize } from 'v8';
 import { getValidSessionByToken } from '../../../database/sessions';
 
 export default async function handler(

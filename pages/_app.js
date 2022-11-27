@@ -3,9 +3,6 @@
 import { css, Global } from '@emotion/react';
 import { useCallback, useEffect, useState } from 'react';
 import Layout from '../components/Layout';
-import { getParsedCookie, setStringifiedCookie } from '../utils/cookies';
-
-//import { getParsedCookie, setStringifiedCookie } from '../utils/cookies';
 
 function MyApp({ Component, pageProps, props }) {
   const [user, setUser] = useState();
