@@ -46,6 +46,18 @@ const inputStyles = css`
   border: solid #7c729a 2px;
 `;
 
+const passwordInputStyles = css`
+  width: 70%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  font-size: 22px;
+  color: #180d24;
+  border-radius: 5px;
+  background-color: rgba(241, 245, 255, 1);
+  border: solid #7c729a 2px;
+`;
+
 const buttonStyles = css`
   background: #fa9d00;
   color: black;
@@ -149,7 +161,8 @@ export default function Register(props: Props) {
           password &nbsp;
           <br></br>
           <input
-            css={inputStyles}
+            css={passwordInputStyles}
+            type="password"
             value={password}
             onChange={(event) => {
               setPassword(event.currentTarget.value);

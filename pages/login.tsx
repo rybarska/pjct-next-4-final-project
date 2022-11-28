@@ -152,6 +152,7 @@ export default function Login(props: Props) {
           <br></br>
           <input
             css={inputStyles}
+            type="password"
             value={password}
             onChange={(event) => {
               setPassword(event.currentTarget.value);
