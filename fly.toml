@@ -41,3 +41,8 @@ processes = []
     interval = "15s"
     restart_limit = 0
     timeout = "2s"
+
+
+[mounts]
+source="myapp_uploads"
+destination="/uploads"
