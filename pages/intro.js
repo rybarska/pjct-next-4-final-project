@@ -61,6 +61,7 @@ export default function Home() {
       </Head>
 
       <div>Home</div>
+      <br></br>
       <section css={textBoxStyles}>
         <h2 css={h2Styles}>
           This is a demo of my UpLeveled bootcamp final project, showcasing work
@@ -69,10 +70,30 @@ export default function Home() {
           database (SDIRS, obviously fictitious).
         </h2>
         <br></br>
+        <br></br>
+        <br></br>
         <h2 css={h2Styles}>
           In a real-world scenario, the database and the steganography tool
           would be separated into two different apps.
         </h2>
+        <br></br>
+        <br></br>
+        <br></br>
+        <h2 css={h2Styles}>
+          The techniques used here include:
+          <ul>
+            <li>Next.js</li>
+            <li>JavaScript</li>
+            <li>TypeScript</li>
+            <li>REST APIs</li>
+            <li>PostgreSQL</li>
+            <li>multipart form</li>
+            <li>LSB (Least Significant Bit) steganography</li>
+            <li>a wrapper for process execution (execa)</li>
+            <li>fetching</li>
+          </ul>
+        </h2>
+        <br></br>
         <br></br>
         <h2 css={h2Styles}>
           Steganography is the technique of hiding secret data within a
@@ -89,8 +110,37 @@ export default function Home() {
                 css={imageStyles}
                 src={`/images/stegGraphics.jpeg`}
                 alt="computer screens with drones flying in space"
-                width="1250"
-                height="800"
+                width="1100"
+                height="820"
+              />
+            </a>
+          </div>
+        </div>
+        <br></br>
+        <h2>
+          To implement steganography, I use:
+          <ul>
+            <li>a multipart form to send files from client to my REST APIs</li>
+            <li>
+              stegify, a package with a command line tool for LSB (Least
+              Significant Bit) steganography
+            </li>
+            <li>
+              execa, a package that allows me to use stegify programmatically in
+              my REST APIs
+            </li>
+            <li>fetch to download the encoded image</li>
+          </ul>
+        </h2>
+        <div css={boxStyles}>
+          <div css={imageDisplayStyles}>
+            <a>
+              <Image
+                css={imageStyles}
+                src={`/images/frontBackendGraphics.jpeg`}
+                alt="computer screens with drones flying in space"
+                width="1100"
+                height="820"
               />
             </a>
           </div>
