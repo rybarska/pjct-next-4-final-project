@@ -4,6 +4,7 @@ import { ProgressBar } from '@open-tech-world/cli-progress-bar';
 import { promises as fs } from 'fs';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getValidSessionByToken } from '../../../database/sessions';
+import { validateTokenWithSecret } from '../../../utils/csrf';
 
 export default async function handler(
   request: NextApiRequest,

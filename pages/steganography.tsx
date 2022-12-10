@@ -110,7 +110,7 @@ export default function Steganography(props: Props) {
     const formData = new FormData();
     formData.append('myText', dataFile);
     formData.append('myImage', carrierImage);
-    const response = await fetch('/api/steganography', {
+    const response = await fetch('/api/encode', {
       method: 'POST',
       body: formData,
     });
@@ -188,7 +188,7 @@ export default function Steganography(props: Props) {
         <div css={formStyles}>
           <section>
             <form
-              action="/api/steganography"
+              action="/api/encode"
               method="post"
               encType="multipart/form-data"
               onSubmit={async (event) => {
@@ -276,7 +276,7 @@ export default function Steganography(props: Props) {
         <div css={formStyles}>
           <section>
             <form
-              action="/api/steganography"
+              action="/api/encode"
               method="post"
               encType="multipart/form-data"
               onSubmit={async (event) => {

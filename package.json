@@ -12,6 +12,8 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@open-tech-world/cli-progress-bar": "^2.0.2",
+    "@sentry/browser": "^7.24.2",
+    "@sentry/tracing": "^7.24.2",
     "bcrypt": "^5.1.0",
     "cheerio": "^1.0.0-rc.12",
     "cookie": "^0.5.0",

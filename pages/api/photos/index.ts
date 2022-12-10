@@ -21,6 +21,12 @@ export default async function handler(
   }
 
   if (request.method === 'GET') {
+    if (!request.cookies.sessionToken) {
+      response
+        .status(400)
+        .json({ errors: [{ message: 'No session token passed' }] });
+      return;
+    }
     const photos = await getPhotos();
 
     return response.status(200).json(photos);

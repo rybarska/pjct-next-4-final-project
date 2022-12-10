@@ -7,6 +7,7 @@ import formidable, {
 } from 'formidable';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getValidSessionByToken } from '../../../database/sessions';
+import { validateTokenWithSecret } from '../../../utils/csrf';
 
 export const config = {
   api: {

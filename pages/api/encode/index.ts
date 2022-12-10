@@ -1,5 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
+import * as Sentry from '@sentry/browser';
+import { BrowserTracing } from '@sentry/tracing';
 import { execa, execaCommand } from 'execa';
 import formidable, {
   errors as formidableErrors,
@@ -7,6 +9,16 @@ import formidable, {
 } from 'formidable';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getValidSessionByToken } from '../../../database/sessions';
+
+Sentry.init({
+  dsn: 'https://5c38610a970e4804a999a672e43051bd@o4504306751897600.ingest.sentry.io/4504306756091904',
+  integrations: [new BrowserTracing()],
+
+  // Set tracesSampleRate to 1.0 to capture 100%
+  // of transactions for performance monitoring.
+  // We recommend adjusting this value in production
+  tracesSampleRate: 1.0,
+});
 
 // import { validateTokenWithSecret } from '../../../utils/csrf';
 
@@ -79,26 +91,6 @@ export default async function handler(
       return;
     }
 
-    // console.log(carrierImage, dataFile);
-
-    /* const carrierImage = request.body?.carrierImage;
-    const dataFile = request.body?.dataFile; */
-
-    /* const csrfToken = request.body?.csrfToken; */
-
-    /* if (!(await validateTokenWithSecret(session.csrfSecret, csrfToken))) {
-      return response.status(401).json({ message: 'csrf_token is not valid' });
-    } */
-
-    /* if (!(carrierImage && dataFile)) {
-      return response
-        .status(400)
-        .json({ message: 'POST: property carrierImage or dataFile missing' });
-    } */
-
-    /* const stegResult = await encode(carrierImage, dataFile);
-    return response.status(200).json(stegResult); */
-
     return response.status(200).json('POST: say something');
   }
 
@@ -109,15 +101,7 @@ export default async function handler(
         .json({ errors: [{ message: 'No session token passed' }] });
       return;
     }
-
-    /* if (!(carrierImage && dataFile)) {
-      return response
-        .status(400)
-        .json({ message: 'GET: property carrierImage or dataFile missing' });
-    } */
-
-    //return response.status(200).json(carrierImage, dataFile);
+    return response.status(200).json('GET: say something');
   }
-
-  //return response.status(400).json({ message: 'Method Not Allowed' });
+  return response.status(400).json({ message: 'Method Not Allowed' });
 }
