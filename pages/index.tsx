@@ -1,7 +1,19 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
+import * as Sentry from '@sentry/browser';
+import { BrowserTracing } from '@sentry/tracing';
 import Head from 'next/head';
 import Image from 'next/image';
+
+Sentry.init({
+  dsn: 'https://5c38610a970e4804a999a672e43051bd@o4504306751897600.ingest.sentry.io/4504306756091904',
+  integrations: [new BrowserTracing()],
+
+  // Set tracesSampleRate to 1.0 to capture 100%
+  // of transactions for performance monitoring.
+  // We recommend adjusting this value in production
+  tracesSampleRate: 1.0,
+});
 
 const textBoxStyles = css`
   display: block;

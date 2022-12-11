@@ -1,7 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import * as Sentry from '@sentry/browser';
-import { BrowserTracing } from '@sentry/tracing';
+/* execa is a wrapper for process execution. Here, it enables programatic use of the stegify encode command.
+formidable is a library that allows to parse the multipart form to access the text file and the image sent from the frontend. */
+
 import { execa, execaCommand } from 'execa';
 import formidable, {
   errors as formidableErrors,
@@ -9,16 +10,6 @@ import formidable, {
 } from 'formidable';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getValidSessionByToken } from '../../../database/sessions';
-
-Sentry.init({
-  dsn: 'https://5c38610a970e4804a999a672e43051bd@o4504306751897600.ingest.sentry.io/4504306756091904',
-  integrations: [new BrowserTracing()],
-
-  // Set tracesSampleRate to 1.0 to capture 100%
-  // of transactions for performance monitoring.
-  // We recommend adjusting this value in production
-  tracesSampleRate: 1.0,
-});
 
 // import { validateTokenWithSecret } from '../../../utils/csrf';
 
@@ -51,18 +42,15 @@ export default async function handler(
       return;
     }
 
+    /* Here, the execaCommand enables programatic use of the stegify encode command that otherwise would work only in the command line.
+    The stegify encode command specifies the parameters: carrier (image), data(text file to be hidden in the carrier image), and result (encoded steganography image). */
     async function encodeStegImage(carrier: any, data: any, result: any) {
       const { stdout } = await execaCommand(
         `stegify encode --carrier ${carrier} --data ${data} --result ${result}`,
       );
     }
 
-    async function decodeStegImage(carrier: any, result: any) {
-      const { stdout } = await execaCommand(
-        `stegify decode --carrier ${carrier} --result ${result}`,
-      );
-    }
-
+    /* This is parsing the multipart form, to access the text file and the image file sent from the frontend. */
     function formidablePromise(request: NextApiRequest) {
       return new Promise((resolve, reject) => {
         const form = new formidable.IncomingForm();
@@ -73,6 +61,7 @@ export default async function handler(
       });
     }
 
+    /* Here, I call the formidablePromise function that parses the multipart form. I specify temporary filepaths for the image (carrierImageFilepath) and the text file (dataFileFilepath) sent from the frontend. I specify the filepath where the encoded steganography image (stegResultFilepath) will be saved. I call the encodeStegImage function and pass the three filepaths as arguments. */
     try {
       const form: any = await formidablePromise(request);
       const carrierImageFilepath = form.files.myImage.filepath;

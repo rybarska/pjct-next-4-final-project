@@ -89,8 +89,6 @@ export default function Photos(props: Props) {
                   height="260"
                 />
               </Link>
-              <br></br>
-              {/* <button css={buttonStyles}>Download</button> */}
             </div>
           );
         })}

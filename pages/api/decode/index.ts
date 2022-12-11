@@ -1,5 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
+/* execa is a wrapper for process execution. Here, it enables programatic use of the stegify decode command.
+formidable is a library that allows to parse the multipart form to access the steganography image sent from the frontend. */
+
 import { execaCommand } from 'execa';
 import formidable, {
   errors as formidableErrors,
@@ -38,12 +41,15 @@ export default async function handler(
       return;
     }
 
+    /* Here, the execaCommand enables programatic use of the stegify decode command that otherwise would work only in the command line.
+    The stegify decode command specifies the parameters: carrier (steganography image), and result(text file to be decoded/extracted from the carrier image). */
     async function decodeStegImage(carrier: any, result: any) {
       const { stdout } = await execaCommand(
         `stegify decode --carrier ${carrier} --result ${result}`,
       );
     }
 
+    /* This is parsing the multipart form, to access the steganography image file sent from the frontend. */
     function formidablePromise(request: NextApiRequest) {
       return new Promise((resolve, reject) => {
         const form = new formidable.IncomingForm();
@@ -54,6 +60,7 @@ export default async function handler(
       });
     }
 
+    /* Here, I call the formidablePromise function that parses the multipart form. I specify temporary filepaths for the steganography image (carrierStegImageFilepath) sent from the frontend. I specify the filepath where the decoded text file (decodedTextFilepath) will be saved. I call the decodeStegImage function and pass the two filepaths as arguments. */
     try {
       const form: any = await formidablePromise(request);
       const carrierStegImageFilepath = form.files.myStegImage.filepath;
@@ -68,26 +75,6 @@ export default async function handler(
       return;
     }
 
-    // console.log(carrierImage, dataFile);
-
-    /* const carrierImage = request.body?.carrierImage;
-    const dataFile = request.body?.dataFile; */
-
-    /* const csrfToken = request.body?.csrfToken; */
-
-    /* if (!(await validateTokenWithSecret(session.csrfSecret, csrfToken))) {
-      return response.status(401).json({ message: 'csrf_token is not valid' });
-    } */
-
-    /* if (!(carrierImage && dataFile)) {
-      return response
-        .status(400)
-        .json({ message: 'POST: property carrierImage or dataFile missing' });
-    } */
-
-    /* const stegResult = await encode(carrierImage, dataFile);
-    return response.status(200).json(stegResult); */
-
     return response.status(200).json('POST: say something');
   }
 
@@ -98,15 +85,7 @@ export default async function handler(
         .json({ errors: [{ message: 'No session token passed' }] });
       return;
     }
-
-    /* if (!(carrierImage && dataFile)) {
-      return response
-        .status(400)
-        .json({ message: 'GET: property carrierImage or dataFile missing' });
-    } */
-
-    //return response.status(200).json(carrierImage, dataFile);
+    return response.status(200).json('GET: say something');
   }
-
-  //return response.status(400).json({ message: 'Method Not Allowed' });
+  return response.status(400).json({ message: 'Method Not Allowed' });
 }
